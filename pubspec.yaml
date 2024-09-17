@@ -18,6 +18,9 @@ dependencies:
   flutter_smart_dialog: ^4.9.8+2
   easy_localization: ^3.0.7
   logger: ^2.4.0
+  flutter_dotenv: ^5.1.0
+  dio: ^5.7.0
+  json_annotation: ^4.9.0
 
 dev_dependencies:
   flutter_test:
@@ -26,6 +29,8 @@ dev_dependencies:
   husky: ^0.1.7
   lint_staged: ^0.5.1
   commitlint_cli: ^0.7.1
+  json_serializable: ^6.8.0
+  build_runner: ^2.4.11
 
 lint_staged:
   "lib/**.dart": dart format --fix && dart fix --apply

@@ -2,7 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
-import 'package:sof_users/core/constants/app_constants.dart';
+import 'package:sof_users/core/constants/constants.dart';
 import 'package:sof_users/core/custom_bloc/custom_bloc_provider.dart';
 import 'package:sof_users/core/navigation/navigation_manager.dart';
 import 'package:sof_users/core/themes/themes.dart';
