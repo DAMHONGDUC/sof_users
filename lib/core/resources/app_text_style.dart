@@ -6,49 +6,49 @@ class AppTextStyle {
   AppTextStyle._();
 
   static TextStyle xSmall() => TextStyle(
-      fontFamily: 'OpenSans',
+      fontFamily: 'Roboto',
       fontSize: 10.sp,
       fontWeight: FontWeight.w400,
       color: AppColors.black);
 
   static TextStyle small() => TextStyle(
-      fontFamily: 'OpenSans',
+      fontFamily: 'Roboto',
       fontSize: 12.sp,
       fontWeight: FontWeight.w400,
       color: AppColors.black);
 
   static TextStyle xBase() => TextStyle(
-      fontFamily: 'OpenSans',
+      fontFamily: 'Roboto',
       fontSize: 13.sp,
       fontWeight: FontWeight.w400,
       color: AppColors.black);
 
   static TextStyle base() => TextStyle(
-      fontFamily: 'OpenSans',
+      fontFamily: 'Roboto',
       fontSize: 14.sp,
       fontWeight: FontWeight.w400,
       color: AppColors.black);
 
   static TextStyle medium() => TextStyle(
-      fontFamily: 'OpenSans',
+      fontFamily: 'Roboto',
       fontSize: 16.sp,
       fontWeight: FontWeight.w400,
       color: AppColors.black);
 
   static TextStyle large() => TextStyle(
-      fontFamily: 'OpenSans',
+      fontFamily: 'Roboto',
       fontSize: 18.sp,
       fontWeight: FontWeight.w600,
       color: AppColors.black);
 
   static TextStyle xLarge() => TextStyle(
-      fontFamily: 'OpenSans',
+      fontFamily: 'Roboto',
       fontSize: 20.sp,
       fontWeight: FontWeight.w700,
       color: AppColors.black);
 
   static TextStyle xxLarge() => TextStyle(
-      fontFamily: 'OpenSans',
+      fontFamily: 'Roboto',
       fontSize: 24.sp,
       fontWeight: FontWeight.w900,
       color: AppColors.black);
