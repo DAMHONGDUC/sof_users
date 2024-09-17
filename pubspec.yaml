@@ -39,6 +39,7 @@ flutter:
   uses-material-design: true
   assets:
     - lib/core/translations/
+    - assets/imgs/
     - .env
   fonts:
     - family: Roboto

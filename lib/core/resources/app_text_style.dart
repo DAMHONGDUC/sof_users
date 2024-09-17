@@ -9,49 +9,49 @@ class AppTextStyle {
       fontFamily: 'Roboto',
       fontSize: 10.sp,
       fontWeight: FontWeight.w400,
-      color: AppColors.black);
+      color: AppColors.black_text);
 
   static TextStyle small() => TextStyle(
       fontFamily: 'Roboto',
       fontSize: 12.sp,
       fontWeight: FontWeight.w400,
-      color: AppColors.black);
+      color: AppColors.black_text);
 
   static TextStyle xBase() => TextStyle(
       fontFamily: 'Roboto',
       fontSize: 13.sp,
       fontWeight: FontWeight.w400,
-      color: AppColors.black);
+      color: AppColors.black_text);
 
   static TextStyle base() => TextStyle(
       fontFamily: 'Roboto',
       fontSize: 14.sp,
       fontWeight: FontWeight.w400,
-      color: AppColors.black);
+      color: AppColors.black_text);
 
   static TextStyle medium() => TextStyle(
       fontFamily: 'Roboto',
       fontSize: 16.sp,
       fontWeight: FontWeight.w400,
-      color: AppColors.black);
+      color: AppColors.black_text);
 
   static TextStyle large() => TextStyle(
       fontFamily: 'Roboto',
       fontSize: 18.sp,
       fontWeight: FontWeight.w600,
-      color: AppColors.black);
+      color: AppColors.black_text);
 
   static TextStyle xLarge() => TextStyle(
       fontFamily: 'Roboto',
       fontSize: 20.sp,
       fontWeight: FontWeight.w700,
-      color: AppColors.black);
+      color: AppColors.black_text);
 
   static TextStyle xxLarge() => TextStyle(
       fontFamily: 'Roboto',
       fontSize: 24.sp,
       fontWeight: FontWeight.w900,
-      color: AppColors.black);
+      color: AppColors.black_text);
 }
 
 extension TextStyleExt on TextStyle {

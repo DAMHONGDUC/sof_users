@@ -1,5 +1,9 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sof_users/core/navigation/app_router.dart';
+import 'package:sof_users/core/navigation/navigation_manager.dart';
+import 'package:sof_users/core/resources/app_assets.dart';
+import 'package:sof_users/core/resources/app_colors.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -10,11 +14,26 @@ class LandingScreen extends StatefulWidget {
 
 class _LandingScreenState extends State<LandingScreen> {
   @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(seconds: 1), () {
+      NavigationManager.router.pushReplacement(AppRouter.HOME.location);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Container(
-          child: Text("landing.title".tr()),
+    final size = 80.sp;
+
+    return Container(
+      color: AppColors.white,
+      child: Center(
+        child: SizedBox(
+          width: size,
+          height: size,
+          child: Image.asset(AppAssets.appLogo,
+              alignment: Alignment.centerLeft, fit: BoxFit.contain),
         ),
       ),
     );
