@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class _LandingScreenState extends State<LandingScreen> {
     return Scaffold(
       body: Center(
         child: Container(
-          child: const Text("LandingScreen"),
+          child: Text("landing.title".tr()),
         ),
       ),
     );

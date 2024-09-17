@@ -33,6 +33,7 @@ lint_staged:
 flutter:
   uses-material-design: true
   assets:
+    - lib/core/translations/
     - .env
   fonts:
     - family: Roboto

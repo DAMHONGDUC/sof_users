@@ -7,6 +7,7 @@ import 'package:sof_users/core/custom_bloc/custom_bloc_provider.dart';
 import 'package:sof_users/core/navigation/navigation_manager.dart';
 import 'package:sof_users/core/themes/themes.dart';
 import 'package:sof_users/utils/helpers.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -34,9 +35,9 @@ class App extends StatelessWidget {
             title: AppConstants.APP_NAME,
             theme: AppTheme.lightTheme,
             debugShowCheckedModeBanner: false,
-            // localizationsDelegates: context.localizationDelegates,
-            // supportedLocales: context.supportedLocales,
-            // locale: context.locale,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
             routerConfig: NavigationManager.router,
           )),
     );
