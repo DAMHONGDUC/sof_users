@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'base_response_entity.g.dart';
+part 'entity_response.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
-class BaseResponseEntity<T> {
+class EntityResponse<T> {
   @JsonKey(name: 'items')
   final T? items;
 
@@ -16,13 +16,12 @@ class BaseResponseEntity<T> {
   @JsonKey(name: 'quota_remaining')
   final int? quotaRemaining;
 
-  BaseResponseEntity(
-      this.items, this.hasMore, this.quotaMax, this.quotaRemaining);
+  EntityResponse(this.items, this.hasMore, this.quotaMax, this.quotaRemaining);
 
-  factory BaseResponseEntity.fromJson(
+  factory EntityResponse.fromJson(
           Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>
-      _$BaseResponseEntityFromJson(json, fromJsonT);
+      _$EntityResponseFromJson(json, fromJsonT);
 
   Map<String, dynamic> toJson(Object Function(T value) toJsonT) =>
-      _$BaseResponseEntityToJson(this, toJsonT);
+      _$EntityResponseToJson(this, toJsonT);
 }

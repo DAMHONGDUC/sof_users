@@ -1,7 +1,7 @@
 import 'package:sof_users/data/data_sources/remote/entity/user_entity.dart';
-import 'package:sof_users/data/data_sources/remote/response/base_response_entity.dart';
+import 'package:sof_users/data/data_sources/remote/response/entity_response.dart';
 
 abstract class ISofUser {
-  Future<BaseResponseEntity<List<UserEntity>>?> getListSOFUser(
+  Future<EntityResponse<List<UserEntity>>?> getListSOFUser(
       {Map<String, dynamic>? params});
 }
