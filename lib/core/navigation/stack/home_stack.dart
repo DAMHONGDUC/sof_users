@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:sof_users/core/navigation/app_router.dart';
-import 'package:sof_users/features/home/ui/home_screen.dart';
+import 'package:sof_users/presentation/home/ui/home_screen.dart';
 
 class HomeStack {
   static final GoRoute route = GoRoute(

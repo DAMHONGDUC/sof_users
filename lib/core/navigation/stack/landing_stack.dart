@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:sof_users/core/navigation/app_router.dart';
-import 'package:sof_users/features/landing/ui/landing_screen.dart';
+import 'package:sof_users/presentation/landing/ui/landing_screen.dart';
 
 class LandingStack {
   static final List<RouteBase> routes = [

@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:sof_users/data/repository/sof_user_repository.dart';
-import 'package:sof_users/domain/use_case/get_sof_user_uc.dart';
-import 'package:sof_users/features/home/bloc/home_bloc.dart';
+import 'package:sof_users/domain/use_case/sof_user_uc.dart';
+import 'package:sof_users/presentation/home/bloc/home_bloc.dart';
 
 final GetIt getIt = GetIt.instance;
 
@@ -10,13 +10,13 @@ Future<void> setupLocator() async {
   getIt.registerLazySingleton<SofUserRepository>(() => SofUserRepository());
 
   // Register use case
-  getIt.registerLazySingleton<GetSofUserUC>(() => GetSofUserUC(
+  getIt.registerLazySingleton<SofUserUC>(() => SofUserUC(
         repository: getIt<SofUserRepository>(),
       ));
 
   // Register blocs
-  getIt.registerFactory<HomeBloc>(() =>
-      HomeBloc(getSofUserUC: getIt<GetSofUserUC>())..add(HomeStartEvent()));
+  getIt.registerFactory<HomeBloc>(
+      () => HomeBloc(getSofUserUC: getIt<SofUserUC>())..add(HomeStartEvent()));
 }
 
 Future<void> resetLocator() async {

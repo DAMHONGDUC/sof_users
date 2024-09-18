@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:sof_users/core/constants/app_endpoints.dart';
 import 'package:sof_users/core/network/dio/dio_service.dart';
-import 'package:sof_users/data/data_sources/remote/entity/user_entity.dart';
-import 'package:sof_users/data/data_sources/remote/i_sof_user.dart';
-import 'package:sof_users/data/data_sources/remote/response/entity_response.dart';
+import 'package:sof_users/data/source/remote/entity/user_entity.dart';
+import 'package:sof_users/data/source/remote/i_sof_user.dart';
+import 'package:sof_users/data/source/remote/response/entity_response.dart';
 
 class SofUserRepository implements ISofUser {
   @override

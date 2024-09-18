@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sof_users/features/home/bloc/home_bloc.dart';
+import 'package:sof_users/presentation/home/bloc/home_bloc.dart';
 import 'package:sof_users/injection_container.dart';
 
 class HomeScreen extends StatefulWidget {

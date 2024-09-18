@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sof_users/data/data_sources/remote/entity/badge_counts_entity.dart';
+import 'package:sof_users/data/source/remote/entity/badge_counts_entity.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 
 part 'user_entity.g.dart';

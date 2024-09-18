@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sof_users/core/constants/constants.dart';
 import 'package:sof_users/core/custom_bloc/app_bloc_observer.dart';
 import 'package:sof_users/core/navigation/navigation_manager.dart';
-import 'package:sof_users/features/app/ui/app.dart';
+import 'package:sof_users/presentation/app/ui/app.dart';
 import 'package:sof_users/utils/log/log.dart';
 import 'injection_container.dart' as di;
 import 'package:flutter_dotenv/flutter_dotenv.dart';
