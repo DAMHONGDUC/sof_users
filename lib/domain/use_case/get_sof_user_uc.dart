@@ -8,8 +8,8 @@ class GetSofUserUC {
 
   final SofUserRepository repository;
 
-  Future<List<UserModel>> call({int page = 0}) async {
-    final listUserEntity = await repository.getListSOFUser();
+  Future<List<UserModel>> call({Map<String, dynamic>? params}) async {
+    final listUserEntity = await repository.getListSOFUser(params: params);
 
     if (listUserEntity?.data?.isNotEmpty ?? false) {
       return listUserEntity!.data!.map((e) => e.toDomain()).toList();

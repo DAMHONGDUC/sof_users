@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:sof_users/domain/model/user_model.dart';
 import 'package:sof_users/domain/use_case/get_sof_user_uc.dart';
+import 'package:equatable/equatable.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -17,7 +19,13 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(HomeInitial());
   }
 
-  _onGetListSofEvent(GetListSofEvent event, Emitter<HomeState> emit) {
+  _onGetListSofEvent(GetListSofEvent event, Emitter<HomeState> emit) async {
     emit(GetListSofLoading());
+
+    await getSofUserUC.call(params: {
+      "page": event.page,
+      "pagesize": event.pageSize,
+      "site": event.site
+    });
   }
 }

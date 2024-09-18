@@ -7,6 +7,7 @@ import 'package:sof_users/core/navigation/navigation_manager.dart';
 import 'package:sof_users/features/app/ui/app.dart';
 import 'package:sof_users/utils/log/log.dart';
 import 'injection_container.dart' as di;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +25,9 @@ void main() async {
 
 Future<void> initialisation() async {
   try {
+    // load env
+    await dotenv.load(fileName: AppConstants.ENV_FILE);
+
     // easy location
     await EasyLocalization.ensureInitialized();
 

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:sof_users/core/constants/app_enum.dart';
 
 import 'package:sof_users/core/network/dio/dio_client.dart';
+import 'package:sof_users/utils/log/log.dart';
 import 'package:sof_users/utils/toast_manager/toast_manager.dart';
 
 class DioService {
@@ -18,6 +19,7 @@ class DioService {
     } catch (e) {
       ToastManager.showNotificationToast(
           type: ToastType.Error, msg: "GET ERROR: $e");
+      Log.e("DioService", e);
     }
     return null;
   }
