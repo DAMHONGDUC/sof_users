@@ -26,14 +26,16 @@ class _LandingScreenState extends State<LandingScreen> {
   Widget build(BuildContext context) {
     final size = 80.sp;
 
-    return Container(
-      color: AppColors.white,
-      child: Center(
-        child: SizedBox(
-          width: size,
-          height: size,
-          child: Image.asset(AppAssets.appLogo,
-              alignment: Alignment.centerLeft, fit: BoxFit.contain),
+    return Scaffold(
+      backgroundColor: AppColors.primary_background,
+      body: Container(
+        child: Center(
+          child: SizedBox(
+            width: size,
+            height: size,
+            child: Image.asset(AppAssets.appLogo,
+                alignment: Alignment.centerLeft, fit: BoxFit.contain),
+          ),
         ),
       ),
     );

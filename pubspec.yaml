@@ -22,6 +22,7 @@ dependencies:
   dio: ^5.7.0
   json_annotation: ^4.9.0
   equatable: ^2.0.5
+  skeletonizer: ^1.4.2
 
 dev_dependencies:
   flutter_test:
@@ -41,6 +42,7 @@ flutter:
   assets:
     - lib/core/translations/
     - assets/imgs/
+    - assets/icons/
     - .env
   fonts:
     - family: Roboto

@@ -14,9 +14,7 @@ class AppBaseScreen extends StatelessWidget {
     return Container(
       color: AppColors.white, //status bar color
       child: SafeArea(
-        child: Scaffold(
-          body: child,
-        ),
+        child: child,
       ),
     );
   }

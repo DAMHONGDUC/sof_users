@@ -6,10 +6,7 @@ sealed class HomeEvent {}
 class HomeStartEvent extends HomeEvent {}
 
 class GetListSofEvent extends HomeEvent {
-  final int page;
-  final int pageSize;
-  final String site;
+  final bool isFirstFetch;
 
-  GetListSofEvent(
-      {required this.page, required this.pageSize, required this.site});
+  GetListSofEvent({required this.isFirstFetch});
 }
