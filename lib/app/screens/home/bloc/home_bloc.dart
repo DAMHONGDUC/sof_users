@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:sof_users/app/utils/extension.dart';
+import 'package:sof_users/app/utils/log.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 import 'package:sof_users/domain/request/get_sof_users_request.dart';
 import 'package:sof_users/domain/use_cases/get_sof_user_uc.dart';
@@ -22,7 +24,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   _onGetListSofEvent(GetListSofEvent event, Emitter<HomeState> emit) async {
     try {
-      if (!event.isFirstFetch) {
+      if (event.globalLoading) {
+        emit(GetListSofGlobalLoading());
+      } else {
         emit(GetListSofBottomLoading());
       }
 
@@ -38,7 +42,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
                       ? state.data.request.page + 1
                       : null))));
     } catch (e) {
-      emit(GetListSofSuccess(data: state.data.copyWith(error: e.toString())));
+      emit(GetListSofError(data: state.data.copyWith(error: e.toString())));
+      Log.e("_onGetListSofEvent", e);
     }
   }
 }

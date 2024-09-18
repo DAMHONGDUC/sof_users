@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sof_users/app/screens/home/bloc/home_bloc.dart';
+import 'package:sof_users/app/screens/home/ui/home_app_bar.dart';
 import 'package:sof_users/app/screens/home/ui/sof_user_row.dart';
 import 'package:sof_users/app/utils/custom_list_skeleton.dart';
+import 'package:sof_users/app/utils/log.dart';
 import 'package:sof_users/app/utils/seperated_list_view.dart';
 import 'package:sof_users/app/utils/toast_manager.dart';
 import 'package:sof_users/app/widgets/custom_empty.dart';
 import 'package:sof_users/core/constants/app_enum.dart';
-import 'package:sof_users/core/di/injection_container.dart';
 import 'package:sof_users/core/resources/app_colors.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 
@@ -19,27 +20,26 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _homeBloc = getIt<HomeBloc>();
-
-  void _getListSofUser({bool isFirstFetch = false}) {
-    _homeBloc.add(GetListSofEvent(isFirstFetch: isFirstFetch));
+  void _getListSofUser({bool globalLoading = false}) {
+    context.read<HomeBloc>().add(GetListSofEvent(globalLoading: globalLoading));
   }
 
   @override
   void initState() {
-    _getListSofUser(isFirstFetch: true);
+    _getListSofUser(globalLoading: true);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const HomeAppBar(),
       backgroundColor: AppColors.primary_background,
       body: Column(
         children: [
           BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
-              if (state is HomeInitial) {
+              if (state is GetListSofGlobalLoading || state is HomeInitial) {
                 return const CustomListSkeleton();
               }
 
@@ -49,6 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     msg: "Get List Sof Failed ${state.data.error}");
               }
 
+              Log.d(state);
               return _buildListUsers(
                 bottomLoading: state is GetListSofBottomLoading,
                 listSofUsers: state.data.listSofUser,

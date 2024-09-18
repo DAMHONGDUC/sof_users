@@ -6,7 +6,7 @@ sealed class HomeEvent {}
 class HomeStartEvent extends HomeEvent {}
 
 class GetListSofEvent extends HomeEvent {
-  final bool isFirstFetch;
+  final bool globalLoading;
 
-  GetListSofEvent({required this.isFirstFetch});
+  GetListSofEvent({required this.globalLoading});
 }
