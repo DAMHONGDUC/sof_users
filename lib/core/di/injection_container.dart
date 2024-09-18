@@ -15,8 +15,8 @@ Future<void> setupLocator() async {
       ));
 
   // Register blocs
-  getIt.registerFactory<HomeBloc>(() =>
-      HomeBloc(getSofUserUC: getIt<GetSofUserUC>())..add(HomeStartEvent()));
+  getIt.registerFactory<HomeBloc>(
+      () => HomeBloc(getSofUserUC: getIt<GetSofUserUC>()));
 }
 
 Future<void> resetLocator() async {
