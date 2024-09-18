@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:sof_users/app/utils/seperated_list_view.dart';
+import 'package:sof_users/app/widgets/seperated_list_view.dart';
 import 'package:sof_users/core/resources/app_colors.dart';
 import 'package:sof_users/core/resources/app_text_style.dart';
 

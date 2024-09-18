@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sof_users/app/screens/home/bloc/home_bloc.dart';
 import 'package:sof_users/app/screens/home/ui/home_app_bar.dart';
 import 'package:sof_users/app/screens/home/ui/sof_user_row.dart';
-import 'package:sof_users/app/utils/custom_list_skeleton.dart';
-import 'package:sof_users/app/utils/log.dart';
-import 'package:sof_users/app/utils/seperated_list_view.dart';
+import 'package:sof_users/app/widgets/custom_list_skeleton.dart';
+import 'package:sof_users/app/widgets/custom_scroll_bar.dart';
+import 'package:sof_users/app/widgets/seperated_list_view.dart';
 import 'package:sof_users/app/utils/toast_manager.dart';
 import 'package:sof_users/app/widgets/custom_empty.dart';
 import 'package:sof_users/core/constants/app_enum.dart';
@@ -49,7 +49,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     msg: "Get List Sof Failed ${state.data.error}");
               }
 
-              Log.d(state);
               return _buildListUsers(
                 bottomLoading: state is GetListSofBottomLoading,
                 listSofUsers: state.data.listSofUser,
@@ -67,14 +66,16 @@ class _HomeScreenState extends State<HomeScreen> {
       return const CustomEmpty();
     }
 
-    return Column(
-      children: [
-        SeperatedListView(
+    return Expanded(
+      child: CustomScrollBar(
+        child: SeperatedListView(
             itemCount: listSofUsers.length,
             itemBuilder: (BuildContext context, int index) {
-              return const SofUserRow();
-            })
-      ],
+              return SofUserRow(
+                user: listSofUsers[index],
+              );
+            }),
+      ),
     );
   }
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sof_users/app/utils/custom_list_divider.dart';
-import 'package:sof_users/core/resources/app_colors.dart';
+import 'package:sof_users/app/widgets/custom_list_divider.dart';
 
 class SeperatedListView extends StatelessWidget {
   final int itemCount;
@@ -16,9 +15,8 @@ class SeperatedListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-            color: AppColors.secondary_background,
-            borderRadius: BorderRadius.circular(5.sp)),
+      padding: EdgeInsets.symmetric(horizontal: 5.sp),
+      child: SingleChildScrollView(
         child: Column(
           children: [
             ListView.separated(
@@ -32,6 +30,8 @@ class SeperatedListView extends StatelessWidget {
                 itemCount: itemCount,
                 itemBuilder: itemBuilder),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
