@@ -3,10 +3,10 @@ import 'dart:convert';
 import 'package:sof_users/core/constants/app_endpoints.dart';
 import 'package:sof_users/core/network/dio/dio_service.dart';
 import 'package:sof_users/data/source/remote/entity/user_entity.dart';
-import 'package:sof_users/data/source/remote/i_sof_user.dart';
 import 'package:sof_users/data/source/remote/response/entity_response.dart';
+import 'package:sof_users/domain/repositories/sof_repository.dart';
 
-class SofUserRepository implements ISofUser {
+class SofRepositoryImpl implements SofRepository {
   @override
   Future<EntityResponse<List<UserEntity>>?> getListSOFUser(
       {Map<String, dynamic>? params}) async {

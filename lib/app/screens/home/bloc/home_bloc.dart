@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:sof_users/domain/model/user_model.dart';
-import 'package:sof_users/domain/use_case/sof_user_uc.dart';
+import 'package:sof_users/domain/use_cases/get_sof_user_uc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:sof_users/app/utils/log.dart';
 
@@ -9,7 +9,7 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final SofUserUC getSofUserUC;
+  final GetSofUserUC getSofUserUC;
 
   HomeBloc({required this.getSofUserUC}) : super(HomeInitial()) {
     on<HomeStartEvent>(_onHomeStartEvent);
@@ -23,7 +23,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _onGetListSofEvent(GetListSofEvent event, Emitter<HomeState> emit) async {
     emit(GetListSofLoading());
 
-    final baseResponse = await getSofUserUC.getListSOFUser(params: {
+    final baseResponse = await getSofUserUC.call(params: {
       "page": event.page,
       "pagesize": event.pageSize,
       "site": event.site

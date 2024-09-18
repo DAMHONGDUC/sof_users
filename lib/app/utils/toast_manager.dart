@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sof_users/core/constants/app_enum.dart';
 import 'package:sof_users/core/resources/app_colors.dart';
-import 'package:sof_users/app/widgets/custom_toast/custom_toast.dart';
+import 'package:sof_users/app/widgets/custom_toast.dart';
 
 class ToastManager {
   static showNotificationToast(

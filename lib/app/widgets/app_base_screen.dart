@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sof_users/core/resources/app_colors.dart';
 
-class AppScreen extends StatelessWidget {
-  const AppScreen({
+class AppBaseScreen extends StatelessWidget {
+  const AppBaseScreen({
     super.key,
     required this.child,
   });
@@ -15,9 +15,6 @@ class AppScreen extends StatelessWidget {
       color: AppColors.white, //status bar color
       child: SafeArea(
         child: Scaffold(
-          // drawer: const MainAppDrawer(),
-          // appBar: _buildAppBar(isLandscape: isLandscape),
-          // body: _buildBody(isLandscape: isLandscape),
           body: child,
         ),
       ),
