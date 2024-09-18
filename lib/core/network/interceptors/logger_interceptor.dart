@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:sof_users/utils/log/log.dart';
+import 'package:sof_users/app/utils/log.dart';
 
 class LoggerInterceptor extends QueuedInterceptorsWrapper {
   @override

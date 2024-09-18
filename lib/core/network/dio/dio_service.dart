@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:sof_users/core/constants/app_enum.dart';
 
 import 'package:sof_users/core/network/dio/dio_client.dart';
-import 'package:sof_users/utils/log/log.dart';
-import 'package:sof_users/utils/toast_manager/toast_manager.dart';
+import 'package:sof_users/app/utils/log.dart';
+import 'package:sof_users/app/utils/toast_manager.dart';
 
 class DioService {
   static Future<Response?> get(

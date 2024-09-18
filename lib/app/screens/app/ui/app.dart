@@ -6,7 +6,7 @@ import 'package:sof_users/core/constants/constants.dart';
 import 'package:sof_users/core/custom_bloc/custom_bloc_provider.dart';
 import 'package:sof_users/core/navigation/navigation_manager.dart';
 import 'package:sof_users/core/themes/themes.dart';
-import 'package:sof_users/utils/helpers.dart';
+import 'package:sof_users/app/utils/helpers.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class App extends StatelessWidget {

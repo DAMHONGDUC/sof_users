@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sof_users/presentation/home/bloc/home_bloc.dart';
-import 'package:sof_users/injection_container.dart';
+import 'package:sof_users/app/screens/home/bloc/home_bloc.dart';
+import 'package:sof_users/core/di/injection_container.dart';
 
 class CustomBlocProvider extends StatelessWidget {
   const CustomBlocProvider({super.key, required this.child});

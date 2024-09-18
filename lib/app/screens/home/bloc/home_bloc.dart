@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 import 'package:sof_users/domain/use_case/sof_user_uc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:sof_users/utils/log/log.dart';
+import 'package:sof_users/app/utils/log.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
