@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'entity_response.dart';
+part of 'base_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-EntityResponse<T> _$EntityResponseFromJson<T>(
+BaseResponse<T> _$BaseResponseFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>
-    EntityResponse<T>(
+    BaseResponse<T>(
       _$nullableGenericFromJson(json['items'], fromJsonT),
       json['has_more'] as bool?,
       (json['quota_max'] as num?)?.toInt(),
       (json['quota_remaining'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$EntityResponseToJson<T>(
-  EntityResponse<T> instance,
+Map<String, dynamic> _$BaseResponseToJson<T>(
+  BaseResponse<T> instance,
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{

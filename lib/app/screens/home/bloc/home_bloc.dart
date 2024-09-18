@@ -23,12 +23,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _onGetListSofEvent(GetListSofEvent event, Emitter<HomeState> emit) async {
     emit(GetListSofLoading());
 
-    final baseResponse = await getSofUserUC.call(params: {
+    final res = await getSofUserUC.call(params: {
       "page": event.page,
       "pagesize": event.pageSize,
       "site": event.site
     });
 
-    Log.d(baseResponse.items?.length);
+    Log.d(res?.items?.length);
   }
 }

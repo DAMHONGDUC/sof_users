@@ -1,5 +1,6 @@
 import 'package:sof_users/data/repositories/sof_repository_impl.dart';
-import 'package:sof_users/domain/response/base_response.dart';
+import 'package:sof_users/domain/model/user_model.dart';
+import 'package:sof_users/domain/response/sof_response.dart';
 
 class GetSofUserUC {
   GetSofUserUC({
@@ -8,11 +9,12 @@ class GetSofUserUC {
 
   final SofRepositoryImpl repository;
 
-  Future<BaseResponse> call({Map<String, dynamic>? params}) async {
-    final entityResponse = await repository.getListSOFUser(params: params);
+  Future<SofResponse<List<UserModel>>?> call(
+      {Map<String, dynamic>? params}) async {
+    final response = await repository.getListSOFUser(params: params);
 
-    return BaseResponse(
-        items: entityResponse?.items?.map((e) => e.toDomain()).toList(),
-        hasMore: entityResponse?.hasMore);
+    return SofResponse(
+        items: response?.items?.map((e) => e.toDomain()).toList(),
+        hasMore: response?.hasMore);
   }
 }
