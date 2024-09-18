@@ -9,21 +9,18 @@ import 'package:sof_users/core/themes/themes.dart';
 import 'package:sof_users/app/utils/helpers.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class App extends StatelessWidget {
-  const App({super.key});
+class MainApp extends StatelessWidget {
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    bool isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
-
     return CustomBlocProvider(
       child: ScreenUtilInit(
           fontSizeResolver: (num fontSize, ScreenUtil screenUtil) =>
               Helpers.customFontSizeResolver(
-                  fontSize: fontSize,
-                  screenUtil: screenUtil,
-                  isLandscape: isLandscape),
+                fontSize: fontSize,
+                screenUtil: screenUtil,
+              ),
           designSize: AppConstants.designSize,
           minTextAdapt: true,
           child: MaterialApp.router(
