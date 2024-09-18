@@ -3,6 +3,7 @@ import 'package:meta/meta.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 import 'package:sof_users/domain/use_case/get_sof_user_uc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:sof_users/utils/log/log.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -22,10 +23,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   _onGetListSofEvent(GetListSofEvent event, Emitter<HomeState> emit) async {
     emit(GetListSofLoading());
 
-    await getSofUserUC.call(params: {
+    final baseResponse = await getSofUserUC.call(params: {
       "page": event.page,
       "pagesize": event.pageSize,
       "site": event.site
     });
+
+    Log.d(baseResponse.items?.length);
   }
 }

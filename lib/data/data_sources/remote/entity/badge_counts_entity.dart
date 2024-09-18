@@ -4,8 +4,13 @@ part 'badge_counts_entity.g.dart';
 
 @JsonSerializable()
 class BadgeCountsEntity {
+  @JsonKey(name: 'bronze')
   final int? bronze;
+
+  @JsonKey(name: 'silver')
   final int? silver;
+
+  @JsonKey(name: 'gold')
   final int? gold;
 
   BadgeCountsEntity({
