@@ -71,8 +71,8 @@ class _HomeScreenState extends State<HomeScreen> {
               if (state is CombineBookmarkSuccess) {
                 setState(() {
                   _isGlobalLoading = false;
-                  _hasMore = state.data.hasMore;
                 });
+                _hasMore = state.data.hasMore;
                 _listSofUserListenable.value = state.data.listSofUser;
               }
             },
@@ -83,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (context, error, child) {
                       return _buildListUsers(
                         hasMore: _hasMore,
+                        onlyShowBookmark: _onlyShowBookmark,
                         listSofUsers: _listSofUserListenable.value,
                       );
                     }),
@@ -93,23 +94,29 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildListUsers(
-      {required List<UserModel> listSofUsers, required bool hasMore}) {
+      {required List<UserModel> listSofUsers,
+      required bool hasMore,
+      required bool onlyShowBookmark}) {
     Log.d("_buildListUsers");
-    if (listSofUsers.isEmpty) {
+    final filteredList = onlyShowBookmark
+        ? listSofUsers.where((user) => user.isBookmark).toList()
+        : listSofUsers;
+
+    if (filteredList.isEmpty) {
       return const CustomEmpty();
     }
 
     return Expanded(
       child: CustomScrollBar(
         child: SeperatedListView(
-            hasMore: hasMore,
+            hasMore: onlyShowBookmark ? false : hasMore,
             onScrollToEnd: _handleGetListSofUser,
-            itemCount: listSofUsers.length,
+            itemCount: filteredList.length,
             itemBuilder: (BuildContext context, int index) {
               return SofUserRow(
                 onToggleBookmark: () =>
-                    _handleToggleBookmark(listSofUsers[index]),
-                user: listSofUsers[index],
+                    _handleToggleBookmark(filteredList[index]),
+                user: filteredList[index],
               );
             }),
       ),
