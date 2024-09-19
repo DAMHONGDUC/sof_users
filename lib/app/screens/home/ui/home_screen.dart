@@ -3,12 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sof_users/app/screens/home/bloc/home_bloc.dart';
 import 'package:sof_users/app/screens/home/ui/home_app_bar.dart';
 import 'package:sof_users/app/screens/home/ui/sof_user_row.dart';
+import 'package:sof_users/app/utils/log.dart';
 import 'package:sof_users/app/widgets/custom_list_skeleton.dart';
 import 'package:sof_users/app/widgets/custom_scroll_bar.dart';
 import 'package:sof_users/app/widgets/seperated_list_view.dart';
-import 'package:sof_users/app/utils/toast_manager.dart';
 import 'package:sof_users/app/widgets/custom_empty.dart';
-import 'package:sof_users/core/constants/app_enum.dart';
 import 'package:sof_users/core/resources/app_colors.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 
@@ -21,15 +20,19 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _scrollController = ScrollController();
+  final ValueNotifier<List<UserModel>> _listSofUserListenable =
+      ValueNotifier(([]));
+  bool _isGlobalLoading = true;
+  bool _hasMore = true;
 
-  void _getListSofUser({bool globalLoading = false}) {
-    context.read<HomeBloc>().add(GetListSofEvent(globalLoading: globalLoading));
+  void _getListSofUser() {
+    context.read<HomeBloc>().add(GetListSofEvent());
   }
 
   @override
   void initState() {
     // get list user
-    _getListSofUser(globalLoading: true);
+    _getListSofUser();
 
     super.initState();
   }
@@ -41,31 +44,35 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: AppColors.primary_background,
       body: Column(
         children: [
-          BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              if (state is GetListSofGlobalLoading || state is HomeInitial) {
-                return const CustomListSkeleton();
+          BlocListener<HomeBloc, HomeState>(
+            listener: (context, state) {
+              if (state is GetListSofSuccess) {
+                setState(() {
+                  _isGlobalLoading = false;
+                });
+                _listSofUserListenable.value = state.data.listSofUser;
+                _hasMore = state.data.hasMore;
               }
-
-              if (state is GetListSofError) {
-                ToastManager.showNotificationToast(
-                    type: ToastType.Error,
-                    msg: "Get List Sof Failed ${state.data.error}");
-              }
-
-              return _buildListUsers(
-                bottomLoading: state is GetListSofBottomLoading,
-                listSofUsers: state.data.listSofUser,
-              );
             },
-          ),
+            child: _isGlobalLoading
+                ? const CustomListSkeleton()
+                : ValueListenableBuilder(
+                    valueListenable: _listSofUserListenable,
+                    builder: (context, error, child) {
+                      return _buildListUsers(
+                        hasMore: _hasMore,
+                        listSofUsers: _listSofUserListenable.value,
+                      );
+                    }),
+          )
         ],
       ),
     );
   }
 
   Widget _buildListUsers(
-      {required List<UserModel> listSofUsers, required bool bottomLoading}) {
+      {required List<UserModel> listSofUsers, required bool hasMore}) {
+    Log.d("_buildListUsers");
     if (listSofUsers.isEmpty) {
       return const CustomEmpty();
     }
@@ -73,6 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Expanded(
       child: CustomScrollBar(
         child: SeperatedListView(
+            hasMore: hasMore,
             onScrollToEnd: _getListSofUser,
             itemCount: listSofUsers.length,
             itemBuilder: (BuildContext context, int index) {

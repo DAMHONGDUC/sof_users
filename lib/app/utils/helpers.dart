@@ -11,4 +11,8 @@ class Helpers {
 
     return FontSizeResolvers.width(fontSize, screenUtil);
   }
+
+  static Future<void> delay(int milliseconds) async {
+    await Future.delayed(Duration(milliseconds: milliseconds));
+  }
 }

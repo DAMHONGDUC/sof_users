@@ -52,11 +52,7 @@ final class HomeInitial extends HomeState {
 }
 
 final class GetListSofGlobalLoading extends HomeState {
-  GetListSofGlobalLoading() : super(data: Data.init());
-}
-
-final class GetListSofBottomLoading extends HomeState {
-  GetListSofBottomLoading({required super.data});
+  GetListSofGlobalLoading({required super.data});
 }
 
 final class GetListSofSuccess extends HomeState {

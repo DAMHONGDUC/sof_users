@@ -5,8 +5,4 @@ sealed class HomeEvent {}
 
 class HomeStartEvent extends HomeEvent {}
 
-class GetListSofEvent extends HomeEvent {
-  final bool globalLoading;
-
-  GetListSofEvent({required this.globalLoading});
-}
+class GetListSofEvent extends HomeEvent {}

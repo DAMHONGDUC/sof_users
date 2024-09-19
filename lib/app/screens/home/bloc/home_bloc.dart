@@ -23,18 +23,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   _onGetListSofEvent(GetListSofEvent event, Emitter<HomeState> emit) async {
-    // we can't load more or we are in load more progress
-    if (!state.data.hasMore || state is GetListSofBottomLoading) {
+    if (state is GetListSofGlobalLoading) {
       return;
     }
 
-    if (event.globalLoading) {
-      emit(GetListSofGlobalLoading());
-    } else {
-      emit(GetListSofBottomLoading(data: state.data));
-    }
-
     // if has more
+    emit(GetListSofGlobalLoading(data: state.data));
     try {
       GetSofUsersRequest newRequest =
           state.data.request.copyWith(page: state.data.request.page + 1);
