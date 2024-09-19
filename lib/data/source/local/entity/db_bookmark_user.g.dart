@@ -12,21 +12,32 @@ class DBBookmarkUserAdapter extends TypeAdapter<DBBookmarkUser> {
 
   @override
   DBBookmarkUser read(BinaryReader reader) {
-    return DBBookmarkUser();
+    final numOfFields = reader.readByte();
+    final fields = <int, dynamic>{
+      for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
+    };
+    return DBBookmarkUser()
+      ..id = fields[0] as int
+      ..profileImage = fields[1] as String?
+      ..location = fields[2] as String?
+      ..reputation = fields[3] as int?
+      ..displayName = fields[4] as String?;
   }
 
   @override
   void write(BinaryWriter writer, DBBookmarkUser obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
-      ..write(obj.displayName)
+      ..write(obj.id)
       ..writeByte(1)
       ..write(obj.profileImage)
       ..writeByte(2)
       ..write(obj.location)
       ..writeByte(3)
-      ..write(obj.reputation);
+      ..write(obj.reputation)
+      ..writeByte(4)
+      ..write(obj.displayName);
   }
 
   @override

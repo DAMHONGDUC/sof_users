@@ -5,14 +5,17 @@ part 'db_bookmark_user.g.dart';
 @HiveType(typeId: 0)
 class DBBookmarkUser extends HiveObject {
   @HiveField(0)
-  final String? displayName = "";
+  int id = 0;
 
   @HiveField(1)
-  final String? profileImage = "";
+  String? profileImage = "";
 
   @HiveField(2)
-  final String? location = "";
+  String? location = "";
 
   @HiveField(3)
-  final int? reputation = 0;
+  int? reputation = 0;
+
+  @HiveField(4)
+  String? displayName = "";
 }

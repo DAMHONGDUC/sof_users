@@ -46,7 +46,7 @@ class UserEntity {
   final String? userType;
 
   @JsonKey(name: 'user_id')
-  final int? userId;
+  final int userId;
 
   @JsonKey(name: 'accept_rate')
   final int? acceptRate;
@@ -79,7 +79,7 @@ class UserEntity {
     this.reputation,
     this.creationDate,
     this.userType,
-    this.userId,
+    required this.userId,
     this.acceptRate,
     this.location,
     this.websiteUrl,
@@ -94,6 +94,7 @@ class UserEntity {
   Map<String, dynamic> toJson() => _$UserEntityToJson(this);
 
   UserModel toDomain() => UserModel(
+      id: userId,
       displayName: displayName,
       profileImage: profileImage,
       location: location,

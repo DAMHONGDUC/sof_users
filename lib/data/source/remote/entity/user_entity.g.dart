@@ -24,7 +24,7 @@ UserEntity _$UserEntityFromJson(Map<String, dynamic> json) => UserEntity(
       reputation: (json['reputation'] as num?)?.toInt(),
       creationDate: (json['creation_date'] as num?)?.toInt(),
       userType: json['user_type'] as String?,
-      userId: (json['user_id'] as num?)?.toInt(),
+      userId: (json['user_id'] as num).toInt(),
       acceptRate: (json['accept_rate'] as num?)?.toInt(),
       location: json['location'] as String?,
       websiteUrl: json['website_url'] as String?,

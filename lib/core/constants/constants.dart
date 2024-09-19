@@ -20,5 +20,5 @@ class AppTranslations {
 }
 
 class LocalDBConstants {
-  static const String DB = 'vi';
+  static const String DB_BOOKMARK_USER = 'DB_BOOKMARK_USER';
 }

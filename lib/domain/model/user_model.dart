@@ -3,10 +3,12 @@ class UserModel {
   final String? profileImage;
   final String? location;
   final int? reputation;
+  final int id;
 
   UserModel(
-      {required this.displayName,
-      required this.profileImage,
-      required this.location,
-      required this.reputation});
+      {this.displayName,
+      this.profileImage,
+      this.location,
+      required this.id,
+      this.reputation});
 }
