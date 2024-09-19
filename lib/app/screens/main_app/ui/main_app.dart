@@ -14,13 +14,16 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     return CustomBlocProvider(
       child: ScreenUtilInit(
           fontSizeResolver: (num fontSize, ScreenUtil screenUtil) =>
               Helpers.customFontSizeResolver(
-                fontSize: fontSize,
-                screenUtil: screenUtil,
-              ),
+                  fontSize: fontSize,
+                  screenUtil: screenUtil,
+                  isLandscape: isLandscape),
           designSize: AppConstants.designSize,
           minTextAdapt: true,
           child: MaterialApp.router(

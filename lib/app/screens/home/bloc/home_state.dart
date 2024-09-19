@@ -18,7 +18,7 @@ class Data {
       GetSofUsersRequest? request,
       String? error}) {
     return Data(
-        listSofUser: listSofUser.isNotNullOrNotEmpty
+        listSofUser: listSofUser.isNotNullAndNotEmpty
             ? List.from(listSofUser!)
             : this.listSofUser,
         hasMore: hasMore ?? this.hasMore,

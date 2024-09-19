@@ -6,4 +6,6 @@ class AppBoxModel {
   static double mainPadding() => 16.sp;
 
   static double halfMainPadding() => 8.sp;
+
+  static double itemSpacing() => 10.sp;
 }

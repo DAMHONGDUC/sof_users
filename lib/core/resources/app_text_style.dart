@@ -7,7 +7,7 @@ class AppTextStyle {
 
   static TextStyle xSmall() => TextStyle(
       fontFamily: 'Roboto',
-      fontSize: 10.sp,
+      fontSize: 11.sp,
       fontWeight: FontWeight.w400,
       color: AppColors.black_text);
 

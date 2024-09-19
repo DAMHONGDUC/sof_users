@@ -3,7 +3,7 @@ extension StringExtensions on String? {
     return this == null || (this?.isEmpty ?? true);
   }
 
-  bool get isNotNullOrNotEmpty {
+  bool get isNotNullAndNotEmpty {
     return !isNullOrEmpty;
   }
 }
@@ -13,7 +13,7 @@ extension ListExtensions on List? {
     return this == null || (this?.isEmpty ?? true);
   }
 
-  bool get isNotNullOrNotEmpty {
+  bool get isNotNullAndNotEmpty {
     return !isNullOrEmpty;
   }
 }
