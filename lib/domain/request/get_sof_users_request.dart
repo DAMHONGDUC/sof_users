@@ -7,7 +7,7 @@ class GetSofUsersRequest {
       {required this.page, required this.pageSize, required this.site});
 
   factory GetSofUsersRequest.init() =>
-      GetSofUsersRequest(page: 1, pageSize: 30, site: "stackoverflow");
+      GetSofUsersRequest(page: 0, pageSize: 30, site: "stackoverflow");
 
   Map<String, dynamic> toParams() {
     return {
