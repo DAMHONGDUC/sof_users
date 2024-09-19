@@ -7,10 +7,10 @@ class HomeStartEvent extends HomeEvent {}
 
 class GetListSofEvent extends HomeEvent {}
 
-class BookmarkSofUserEvent extends HomeEvent {
+class ToggleBookmarkEvent extends HomeEvent {
   final UserModel user;
 
-  BookmarkSofUserEvent({required this.user});
+  ToggleBookmarkEvent({required this.user});
 }
 
 class CombineWithBookmarkEvent extends HomeEvent {}

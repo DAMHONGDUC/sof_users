@@ -10,24 +10,21 @@ class SofRepositoryImpl implements SofRepository {
   @override
   Future<BaseResponse<List<UserEntity>>?> getListSOFUser(
       {Map<String, dynamic>? params}) async {
-    try {
-      final response =
-          await DioService.get(AppEndpoints.USERS, queryParams: params);
+    final response =
+        await DioService.get(AppEndpoints.USERS, queryParams: params);
 
-      if (response?.statusCode == 200) {
-        Map<String, dynamic> json = jsonDecode(response.toString());
+    if (response?.statusCode == 200) {
+      Map<String, dynamic> json = jsonDecode(response.toString());
 
-        final baseResponse =
-            BaseResponse<List<UserEntity>>.fromJson(json, (data) {
-          return (data as List<dynamic>)
-              .map((e) => UserEntity.fromJson(e as Map<String, dynamic>))
-              .toList();
-        });
+      final baseResponse =
+          BaseResponse<List<UserEntity>>.fromJson(json, (data) {
+        return (data as List<dynamic>)
+            .map((e) => UserEntity.fromJson(e as Map<String, dynamic>))
+            .toList();
+      });
 
-        return baseResponse;
-      }
-    } catch (err) {}
-
+      return baseResponse;
+    }
     return null;
   }
 }

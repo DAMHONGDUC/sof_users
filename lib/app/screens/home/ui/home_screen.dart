@@ -32,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _onBookmarkUser(UserModel user) {
-    context.read<HomeBloc>().add(BookmarkSofUserEvent(user: user));
+    context.read<HomeBloc>().add(ToggleBookmarkEvent(user: user));
   }
 
   @override

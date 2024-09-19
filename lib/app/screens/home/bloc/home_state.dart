@@ -68,8 +68,8 @@ final class GetListSofError extends HomeState {
   GetListSofError({required super.data});
 }
 
-final class HandleBookmarkLoaing extends HomeState {
-  HandleBookmarkLoaing({required super.data});
+final class HandleBookmarkLoading extends HomeState {
+  HandleBookmarkLoading({required super.data});
 }
 
 final class CombineBookmarkSuccess extends HomeState {
