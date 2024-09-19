@@ -11,12 +11,10 @@ BaseResponse<T> _$BaseResponseFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     BaseResponse<T>(
-      _$nullableGenericFromJson(json['data'], fromJsonT),
-      json['message'] as String?,
-      (json['code'] as num?)?.toInt(),
-      (json['errors'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
+      _$nullableGenericFromJson(json['items'], fromJsonT),
+      json['has_more'] as bool?,
+      (json['quota_max'] as num?)?.toInt(),
+      (json['quota_remaining'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$BaseResponseToJson<T>(
@@ -24,10 +22,10 @@ Map<String, dynamic> _$BaseResponseToJson<T>(
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
-      'data': _$nullableGenericToJson(instance.data, toJsonT),
-      'message': instance.message,
-      'code': instance.code,
-      'errors': instance.errors,
+      'items': _$nullableGenericToJson(instance.items, toJsonT),
+      'has_more': instance.hasMore,
+      'quota_max': instance.quotaMax,
+      'quota_remaining': instance.quotaRemaining,
     };
 
 T? _$nullableGenericFromJson<T>(

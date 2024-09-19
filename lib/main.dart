@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sof_users/core/constants/constants.dart';
 import 'package:sof_users/core/custom_bloc/app_bloc_observer.dart';
 import 'package:sof_users/core/navigation/navigation_manager.dart';
-import 'package:sof_users/features/app/ui/app.dart';
-import 'package:sof_users/utils/log/log.dart';
-import 'injection_container.dart' as di;
+import 'package:sof_users/app/screens/main_app/ui/main_app.dart';
+import 'package:sof_users/app/utils/log.dart';
+import 'package:sof_users/core/di/injection_container.dart' as di;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,12 +19,15 @@ void main() async {
         supportedLocales: AppTranslations.supportedLocales,
         startLocale: const Locale(AppTranslations.EN),
         fallbackLocale: const Locale(AppTranslations.EN),
-        child: const App()),
+        child: const MainApp()),
   );
 }
 
 Future<void> initialisation() async {
   try {
+    // load env
+    await dotenv.load(fileName: AppConstants.ENV_FILE);
+
     // easy location
     await EasyLocalization.ensureInitialized();
 

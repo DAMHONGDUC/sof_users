@@ -4,12 +4,19 @@ part 'base_response.g.dart';
 
 @JsonSerializable(genericArgumentFactories: true)
 class BaseResponse<T> {
-  final T? data;
-  final String? message;
-  final int? code;
-  final Map<String, String>? errors;
+  @JsonKey(name: 'items')
+  final T? items;
 
-  BaseResponse(this.data, this.message, this.code, this.errors);
+  @JsonKey(name: 'has_more')
+  final bool? hasMore;
+
+  @JsonKey(name: 'quota_max')
+  final int? quotaMax;
+
+  @JsonKey(name: 'quota_remaining')
+  final int? quotaRemaining;
+
+  BaseResponse(this.items, this.hasMore, this.quotaMax, this.quotaRemaining);
 
   factory BaseResponse.fromJson(
           Map<String, dynamic> json, T Function(Object? json) fromJsonT) =>

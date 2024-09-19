@@ -3,6 +3,7 @@ import 'dart:ui';
 class AppConstants {
   static const designSize = Size(360, 690);
   static const String APP_NAME = 'SOF Users';
+  static const String ENV_FILE = '.env';
 }
 
 class AppTranslations {

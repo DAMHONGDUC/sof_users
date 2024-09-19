@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sof_users/core/navigation/app_router.dart';
 import 'package:sof_users/core/navigation/stack/home_stack.dart';
 import 'package:sof_users/core/navigation/stack/landing_stack.dart';
-import 'package:sof_users/core/widgets/app/app_screen.dart';
+import 'package:sof_users/app/widgets/app_base_screen.dart';
 
 class NavigationManager {
   factory NavigationManager() {
@@ -39,7 +39,7 @@ class NavigationManager {
             pageBuilder:
                 (BuildContext context, GoRouterState state, Widget child) {
               return AppRouter.getPage(
-                child: AppScreen(child: child),
+                child: AppBaseScreen(child: child),
                 state: state,
               );
             },
