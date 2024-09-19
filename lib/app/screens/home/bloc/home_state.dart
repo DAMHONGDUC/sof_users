@@ -62,3 +62,7 @@ final class GetListSofSuccess extends HomeState {
 final class GetListSofError extends HomeState {
   GetListSofError({required super.data});
 }
+
+final class BookmarkUserLoaing extends HomeState {
+  BookmarkUserLoaing({required super.data});
+}

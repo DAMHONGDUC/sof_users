@@ -11,8 +11,10 @@ import 'package:sof_users/core/resources/app_text_style.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 
 class SofUserRow extends StatelessWidget {
-  const SofUserRow({super.key, required this.user});
+  const SofUserRow(
+      {super.key, required this.user, required this.onBookmarkUser});
 
+  final void Function() onBookmarkUser;
   final UserModel user;
 
   @override
@@ -73,7 +75,7 @@ class SofUserRow extends StatelessWidget {
 
     Widget buildRightWidget() {
       return IconButton(
-          onPressed: () {},
+          onPressed: onBookmarkUser,
           icon: Icon(
             Icons.star,
             size: AppIconSize.base(),

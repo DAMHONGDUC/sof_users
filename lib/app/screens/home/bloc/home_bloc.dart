@@ -16,6 +16,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc({required this.getSofUserUC}) : super(HomeInitial()) {
     on<HomeStartEvent>(_onHomeStartEvent);
     on<GetListSofEvent>(_onGetListSofEvent);
+    on<BookmarkSofUserEvent>(_onBookmarkSofUserEvent);
+  }
+
+  _onBookmarkSofUserEvent(BookmarkSofUserEvent event, Emitter<HomeState> emit) {
+    Log.d("_onBookmarkSofUserEvent");
+    emit(BookmarkUserLoaing(data: state.data));
   }
 
   _onHomeStartEvent(HomeStartEvent event, Emitter<HomeState> emit) {

@@ -31,6 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<HomeBloc>().add(GetListSofEvent());
   }
 
+  void _onBookmarkUser(UserModel user) {
+    context.read<HomeBloc>().add(BookmarkSofUserEvent(user: user));
+  }
+
   @override
   void initState() {
     // get list user
@@ -95,6 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
             itemCount: listSofUsers.length,
             itemBuilder: (BuildContext context, int index) {
               return SofUserRow(
+                onBookmarkUser: () => _onBookmarkUser(listSofUsers[index]),
                 user: listSofUsers[index],
               );
             }),
