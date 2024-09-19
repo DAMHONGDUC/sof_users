@@ -79,7 +79,7 @@ class SofUserRow extends StatelessWidget {
           icon: Icon(
             Icons.star,
             size: AppIconSize.base(),
-            color: AppColors.grey,
+            color: user.isBookmark ? AppColors.red : AppColors.grey,
           ));
     }
 

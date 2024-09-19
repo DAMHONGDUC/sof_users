@@ -1,4 +1,3 @@
-import 'package:sof_users/app/utils/log.dart';
 import 'package:sof_users/data/repositories/bookmark_repository_impl.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 
@@ -12,8 +11,8 @@ class GetListBookmarkUC {
   Future<List<UserModel>> call({Map<String, dynamic>? params}) async {
     final response = await repository.getListBookmark();
 
-    Log.d(response);
-
-    return [];
+    return response.map((e) {
+      return e.toDomain();
+    }).toList();
   }
 }

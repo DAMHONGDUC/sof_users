@@ -12,3 +12,5 @@ class BookmarkSofUserEvent extends HomeEvent {
 
   BookmarkSofUserEvent({required this.user});
 }
+
+class CombineWithBookmarkEvent extends HomeEvent {}

@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     type: ToastType.Error, msg: "Get Sof Users failed");
               }
 
-              if (state is GetListSofSuccess) {
+              if (state is CombineBookmarkSuccess) {
                 setState(() {
                   _isGlobalLoading = false;
                   _hasMore = state.data.hasMore;

@@ -1,4 +1,5 @@
 import 'package:hive/hive.dart';
+import 'package:sof_users/domain/model/user_model.dart';
 
 part 'db_bookmark_user.g.dart';
 
@@ -18,4 +19,11 @@ class DBBookmarkUser extends HiveObject {
 
   @HiveField(4)
   String? displayName = "";
+
+  UserModel toDomain() => UserModel(
+      id: id,
+      displayName: displayName,
+      profileImage: profileImage,
+      location: location,
+      reputation: reputation);
 }
