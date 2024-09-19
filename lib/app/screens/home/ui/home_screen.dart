@@ -26,6 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ValueNotifier(([]));
   bool _isGlobalLoading = true;
   bool _hasMore = true;
+  bool _onlyShowBookmark = false;
 
   void _handleGetListSofUser() {
     context.read<HomeBloc>().add(GetListSofEvent());
@@ -46,7 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HomeAppBar(),
+      appBar: HomeAppBar(
+        onSwitcherChanged: (newValue) {
+          setState(() {
+            _onlyShowBookmark = newValue;
+          });
+        },
+        switcherValue: _onlyShowBookmark,
+      ),
       backgroundColor: AppColors.primary_background,
       body: Column(
         children: [
