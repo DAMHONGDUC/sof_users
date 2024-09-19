@@ -27,18 +27,18 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _isGlobalLoading = true;
   bool _hasMore = true;
 
-  void _getListSofUser() {
+  void _handleGetListSofUser() {
     context.read<HomeBloc>().add(GetListSofEvent());
   }
 
-  void _onBookmarkUser(UserModel user) {
+  void _handleToggleBookmark(UserModel user) {
     context.read<HomeBloc>().add(ToggleBookmarkEvent(user: user));
   }
 
   @override
   void initState() {
     // get list user
-    _getListSofUser();
+    _handleGetListSofUser();
 
     super.initState();
   }
@@ -95,11 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
       child: CustomScrollBar(
         child: SeperatedListView(
             hasMore: hasMore,
-            onScrollToEnd: _getListSofUser,
+            onScrollToEnd: _handleGetListSofUser,
             itemCount: listSofUsers.length,
             itemBuilder: (BuildContext context, int index) {
               return SofUserRow(
-                onBookmarkUser: () => _onBookmarkUser(listSofUsers[index]),
+                onToggleBookmark: () =>
+                    _handleToggleBookmark(listSofUsers[index]),
                 user: listSofUsers[index],
               );
             }),

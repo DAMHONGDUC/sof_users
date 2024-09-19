@@ -51,6 +51,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     try {
       await toggleBookmarkUC.call(user: event.user);
+
+      add(CombineWithBookmarkEvent());
     } catch (err) {
       emit(GetListSofError(data: state.data.copyWith(error: err.toString())));
     }
