@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sof_users/app/screens/home/bloc/home_bloc.dart';
 import 'package:sof_users/app/screens/home/ui/home_app_bar.dart';
 import 'package:sof_users/app/screens/home/ui/sof_user_row.dart';
-import 'package:sof_users/app/utils/log.dart';
 import 'package:sof_users/app/widgets/custom_list_skeleton.dart';
 import 'package:sof_users/app/widgets/custom_scroll_bar.dart';
 import 'package:sof_users/app/widgets/seperated_list_view.dart';
@@ -27,18 +26,8 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<HomeBloc>().add(GetListSofEvent(globalLoading: globalLoading));
   }
 
-  void _handleScrolling() {
-    if (_scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent) {
-      _getListSofUser();
-    }
-  }
-
   @override
   void initState() {
-    // handldle scroll
-    _scrollController.addListener(_handleScrolling);
-
     // get list user
     _getListSofUser(globalLoading: true);
 
@@ -76,18 +65,15 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildListUsers(
-      {required bool bottomLoading, required List<UserModel> listSofUsers}) {
+      {required List<UserModel> listSofUsers, required bool bottomLoading}) {
     if (listSofUsers.isEmpty) {
       return const CustomEmpty();
     }
 
-    Log.d(bottomLoading);
-
     return Expanded(
       child: CustomScrollBar(
         child: SeperatedListView(
-            scrollController: _scrollController,
-            bottomLoading: bottomLoading,
+            onScrollToEnd: _getListSofUser,
             itemCount: listSofUsers.length,
             itemBuilder: (BuildContext context, int index) {
               return SofUserRow(
