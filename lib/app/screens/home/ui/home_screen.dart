@@ -23,10 +23,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _scrollController = ScrollController();
-  final ValueNotifier<List<UserModel>> _listSofUserListenable =
-      ValueNotifier(([]));
-  bool _isRefreshLoading = true;
-  bool _hasMore = true;
   bool _onlyShowBookmark = false;
 
   void _handleRefresh() async {
@@ -47,9 +43,15 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _onSwitchOnlyShowBookmark(bool newValue) {
+    setState(() {
+      _onlyShowBookmark = newValue;
+    });
+  }
+
   @override
   void initState() {
-    // get list user
+    // get list user on init
     _handleRefresh();
 
     super.initState();
@@ -59,11 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: HomeAppBar(
-        onSwitcherChanged: (newValue) {
-          setState(() {
-            _onlyShowBookmark = newValue;
-          });
-        },
+        onSwitcherChanged: _onSwitchOnlyShowBookmark,
         switcherValue: _onlyShowBookmark,
       ),
       backgroundColor: AppColors.primary_background,
@@ -73,39 +71,33 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             BlocListener<HomeBloc, HomeState>(
               listener: (context, state) {
-                if (state is RefreshLoading) {
-                  setState(() {
-                    _isRefreshLoading = true;
-                  });
-                }
-
                 if (state is HomeError) {
-                  setState(() {
-                    _isRefreshLoading = false;
-                  });
                   ToastManager.showNotificationToast(
-                      type: ToastType.Error, msg: "Get Sof Users failed");
-                }
-
-                if (state is CombineBookmarkSuccess) {
-                  setState(() {
-                    _isRefreshLoading = false;
-                  });
-                  _hasMore = state.data.hasMore;
-                  _listSofUserListenable.value = state.data.listSofUser;
+                      type: ToastType.Error,
+                      msg: "Home Error: ${state.data.error}");
                 }
               },
-              child: _isRefreshLoading
-                  ? const CustomListSkeleton()
-                  : ValueListenableBuilder(
-                      valueListenable: _listSofUserListenable,
-                      builder: (context, error, child) {
-                        return _buildListUsers(
-                          hasMore: _hasMore,
-                          onlyShowBookmark: _onlyShowBookmark,
-                          listSofUsers: _listSofUserListenable.value,
-                        );
-                      }),
+              child: BlocBuilder<HomeBloc, HomeState>(
+                buildWhen: (previous, current) {
+                  return current is RefreshLoading ||
+                      current is CombineBookmarkSuccess;
+                },
+                builder: (context, state) {
+                  if (state is RefreshLoading) {
+                    return const CustomListSkeleton();
+                  }
+
+                  if (state is CombineBookmarkSuccess) {
+                    return _buildListUsers(
+                      hasMore: state.data.hasMore,
+                      onlyShowBookmark: _onlyShowBookmark,
+                      listSofUsers: state.data.listSofUser,
+                    );
+                  }
+
+                  return const CustomEmpty();
+                },
+              ),
             )
           ],
         ),
