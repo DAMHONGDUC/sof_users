@@ -56,22 +56,30 @@ final class HomeInitial extends HomeState {
   HomeInitial() : super(data: Data.init());
 }
 
-final class GetListSofGlobalLoading extends HomeState {
-  GetListSofGlobalLoading({required super.data});
+final class HomeError extends HomeState {
+  HomeError({required super.data});
 }
 
-final class GetListSofSuccess extends HomeState {
-  GetListSofSuccess({required super.data});
+final class GetDataSuccess extends HomeState {
+  GetDataSuccess({required super.data});
 }
 
-final class GetListSofError extends HomeState {
-  GetListSofError({required super.data});
-}
-
+// bookmark
 final class HandleBookmarkLoading extends HomeState {
   HandleBookmarkLoading({required super.data});
 }
 
 final class CombineBookmarkSuccess extends HomeState {
   CombineBookmarkSuccess({required super.data});
+}
+
+// refresh
+final class RefreshLoading extends HomeState {
+  RefreshLoading({required super.data});
+}
+
+// loadmore
+
+final class LoadMoreLoading extends HomeState {
+  LoadMoreLoading({required super.data});
 }

@@ -28,18 +28,22 @@ class _HomeScreenState extends State<HomeScreen> {
   bool _hasMore = true;
   bool _onlyShowBookmark = false;
 
-  void _handleGetListSofUser() {
-    context.read<HomeBloc>().add(GetListSofEvent());
+  void _handleRefresh() {
+    context.read<HomeBloc>().add(RefreshEvent());
   }
 
   void _handleToggleBookmark(UserModel user) {
     context.read<HomeBloc>().add(ToggleBookmarkEvent(user: user));
   }
 
+  void _handleLoadMore() {
+    context.read<HomeBloc>().add(LoadMoreEvent());
+  }
+
   @override
   void initState() {
     // get list user
-    _handleGetListSofUser();
+    _handleRefresh();
 
     super.initState();
   }
@@ -60,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           BlocListener<HomeBloc, HomeState>(
             listener: (context, state) {
-              if (state is GetListSofError) {
+              if (state is HomeError) {
                 setState(() {
                   _isGlobalLoading = false;
                 });
@@ -110,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: CustomScrollBar(
         child: SeperatedListView(
             hasMore: onlyShowBookmark ? false : hasMore,
-            onScrollToEnd: _handleGetListSofUser,
+            onScrollToEnd: _handleLoadMore,
             itemCount: filteredList.length,
             itemBuilder: (BuildContext context, int index) {
               return SofUserRow(
