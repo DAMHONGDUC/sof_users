@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
@@ -25,5 +26,17 @@ class Helpers {
     Directory? hivePath = await getApplicationSupportDirectory();
     await Hive.initFlutter(hivePath.path);
     Hive.registerAdapter(DBBookmarkUserAdapter());
+  }
+}
+
+class AppTimeFormat {
+  String formatMilisecTime(int? postId) {
+    if (postId == null) {
+      return "";
+    }
+
+    DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(postId * 1000);
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+    return dateFormat.format(dateTime);
   }
 }
