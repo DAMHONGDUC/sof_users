@@ -11,9 +11,11 @@ class SeperatedListView extends StatefulWidget {
   final ScrollController? customScrollController;
   final VoidCallback? onScrollToEnd;
   final bool hasMore;
+  final String? listKey;
 
   const SeperatedListView(
       {super.key,
+      this.listKey,
       required this.itemCount,
       required this.itemBuilder,
       this.onScrollToEnd,
@@ -55,6 +57,7 @@ class _SeperatedListViewState extends State<SeperatedListView> {
       child: Column(
         children: [
           ListView.separated(
+              key: PageStorageKey(widget.listKey ?? "page"),
               physics: const NeverScrollableScrollPhysics(),
               separatorBuilder: (context, index) {
                 return const CustomListDivider();
