@@ -3,12 +3,15 @@
 ## Notes
 
 - Flutter: `Flutter (Channel stable, 3.22.2, on macOS 13.6 22G120 darwin-arm64, locale en-GB)`
+- Latest branch: `dev`
 
 ## Run App
+
 - Install dependencies:
-    ```
-    flutter pub get
-    ```
+
+  ```
+  flutter pub get
+  ```
 
 - Create a `.env` file in the root project with these values:
   ```
