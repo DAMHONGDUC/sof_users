@@ -4,7 +4,7 @@ class Data {
   final List<UserModel> listSofUser;
   final List<UserModel> listBookmarks;
   final bool hasMore;
-  final GetSofUsersRequest request;
+  final PaginationRequest request;
   final String? error;
 
   const Data(
@@ -18,7 +18,7 @@ class Data {
       {List<UserModel>? listSofUser,
       List<UserModel>? listBookmarks,
       bool? hasMore,
-      GetSofUsersRequest? request,
+      PaginationRequest? request,
       String? error}) {
     return Data(
         listSofUser: listSofUser.isNotNullAndNotEmpty
@@ -34,13 +34,12 @@ class Data {
     return Data(
         listSofUser: [],
         listBookmarks: [],
-        request: GetSofUsersRequest.init(),
+        request: PaginationRequest.init(),
         hasMore: true,
         error: null);
   }
 }
 
-@immutable
 sealed class HomeState extends Equatable {
   final Data data;
 

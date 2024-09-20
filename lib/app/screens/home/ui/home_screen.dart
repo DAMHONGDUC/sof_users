@@ -1,17 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sof_users/app/screens/home/bloc/home_bloc.dart';
-import 'package:sof_users/app/screens/home/ui/home_app_bar.dart';
 import 'package:sof_users/app/screens/home/ui/sof_user_row.dart';
+import 'package:sof_users/app/screens/user_detail/ui/user_detail_screen.dart';
 import 'package:sof_users/app/utils/log.dart';
 import 'package:sof_users/app/utils/toast_manager.dart';
+import 'package:sof_users/app/widgets/custom_app_bar.dart';
 import 'package:sof_users/app/widgets/custom_list_skeleton.dart';
 import 'package:sof_users/app/widgets/custom_refresh.dart';
 import 'package:sof_users/app/widgets/custom_scroll_bar.dart';
+import 'package:sof_users/app/widgets/custom_switch.dart';
+import 'package:sof_users/app/widgets/item_spacing.dart';
 import 'package:sof_users/app/widgets/seperated_list_view.dart';
 import 'package:sof_users/app/widgets/custom_empty.dart';
 import 'package:sof_users/core/constants/app_enum.dart';
+import 'package:sof_users/core/navigation/app_router.dart';
+import 'package:sof_users/core/navigation/navigation_manager.dart';
 import 'package:sof_users/core/resources/app_colors.dart';
+import 'package:sof_users/core/resources/app_text_style.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -37,6 +43,11 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<HomeBloc>().add(LoadMoreEvent());
   }
 
+  void _navToUserDetail(UserModel user) {
+    NavigationManager.router.push(AppRouter.USER_DETAIL.location,
+        extra: UserDetailArgs(userId: user.id, userName: user.displayName));
+  }
+
   Future<void> _onRefresh() async {
     if (!_onlyShowBookmark) {
       _handleRefresh();
@@ -60,9 +71,23 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HomeAppBar(
-        onSwitcherChanged: _onSwitchOnlyShowBookmark,
-        switcherValue: _onlyShowBookmark,
+      appBar: CustomAppBar(
+        title: "Home",
+        actions: [
+          Row(
+            children: [
+              Text(
+                "Only bookmark",
+                style: AppTextStyle.small().copyWith(color: AppColors.white),
+              ),
+              const HorizontalSpacing(),
+              CustomSwitch(
+                  onChanged: _onSwitchOnlyShowBookmark,
+                  value: _onlyShowBookmark),
+              const HorizontalSpacing(),
+            ],
+          )
+        ],
       ),
       backgroundColor: AppColors.primary_background,
       body: CustomRefresh(
@@ -125,10 +150,11 @@ class _HomeScreenState extends State<HomeScreen> {
             onScrollToEnd: _handleLoadMore,
             itemCount: filteredList.length,
             itemBuilder: (BuildContext context, int index) {
+              final user = filteredList[index];
               return SofUserRow(
-                onToggleBookmark: () =>
-                    _handleToggleBookmark(filteredList[index]),
-                user: filteredList[index],
+                onTap: () => _navToUserDetail(user),
+                onToggleBookmark: () => _handleToggleBookmark(user),
+                user: user,
               );
             }),
       ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sof_users/app/utils/extension.dart';
 import 'package:sof_users/app/widgets/custom_cached_image.dart';
 import 'package:sof_users/app/widgets/custom_inkwell.dart';
+import 'package:sof_users/app/widgets/info_row.dart';
 import 'package:sof_users/app/widgets/item_spacing.dart';
 import 'package:sof_users/core/resources/app_box_model.dart';
 import 'package:sof_users/core/resources/app_colors.dart';
@@ -12,40 +12,17 @@ import 'package:sof_users/domain/model/user_model.dart';
 
 class SofUserRow extends StatelessWidget {
   const SofUserRow(
-      {super.key, required this.user, required this.onToggleBookmark});
+      {super.key,
+      required this.user,
+      required this.onToggleBookmark,
+      required this.onTap});
 
   final void Function() onToggleBookmark;
+  final void Function() onTap;
   final UserModel user;
 
   @override
   Widget build(BuildContext context) {
-    Widget buildInfoRow({
-      required String title,
-      String? content,
-    }) {
-      if (content.isNullOrEmpty) {
-        return const SizedBox.shrink();
-      }
-
-      return Row(children: [
-        Text(
-          "$title: ",
-          style: AppTextStyle.xSmall().copyWith(color: AppColors.grey),
-          overflow: TextOverflow.ellipsis,
-        ),
-        Expanded(
-          child: Text(
-            content!,
-            style: AppTextStyle.small()
-                .copyWith(color: AppColors.grey)
-                .wSemiBold(),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-          ),
-        )
-      ]);
-    }
-
     Widget buildLeftWidget() {
       return Row(
         children: [
@@ -63,8 +40,8 @@ class SofUserRow extends StatelessWidget {
                   user.displayName ?? "No name",
                   style: AppTextStyle.base().wSemiBold(),
                 ),
-                buildInfoRow(title: "Location", content: user.location),
-                buildInfoRow(
+                InfoRow(title: "Location", content: user.location),
+                InfoRow(
                     title: "Reputation", content: user.reputation.toString())
               ],
             ),
@@ -84,7 +61,7 @@ class SofUserRow extends StatelessWidget {
     }
 
     return CustomInkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(AppBoxModel.halfMainPadding()),
         child: Row(

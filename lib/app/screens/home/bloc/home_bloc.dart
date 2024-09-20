@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:sof_users/app/utils/extension.dart';
 import 'package:sof_users/domain/model/user_model.dart';
-import 'package:sof_users/domain/request/get_sof_users_request.dart';
+import 'package:sof_users/domain/request/pagination_request.dart';
 import 'package:sof_users/domain/use_cases/toggle_bookmark_uc.dart';
 import 'package:sof_users/domain/use_cases/get_list_bookmark_uc.dart';
 import 'package:sof_users/domain/use_cases/get_sof_user_uc.dart';
@@ -115,7 +114,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       {required HomeState state,
       required Emitter<HomeState> emit,
       bool isRefresh = false,
-      required GetSofUsersRequest request}) async {
+      required PaginationRequest request}) async {
     final newRequest = request.copyWith(page: isRefresh ? 1 : request.page + 1);
 
     final res = await getSofUserUC.call(params: newRequest.toParams());

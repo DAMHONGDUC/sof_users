@@ -1,4 +1,4 @@
-import 'package:sof_users/data/repositories/sof_repository_impl.dart';
+import 'package:sof_users/data/repositories/user_repository_impl.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 import 'package:sof_users/domain/response/sof_response.dart';
 
@@ -7,7 +7,7 @@ class GetSofUserUC {
     required this.repository,
   });
 
-  final SofRepositoryImpl repository;
+  final UserRepositoryImpl repository;
 
   Future<SofResponse<List<UserModel>>?> call(
       {Map<String, dynamic>? params}) async {
