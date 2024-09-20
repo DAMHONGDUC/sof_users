@@ -25,5 +25,6 @@ class DBBookmarkUser extends HiveObject {
       displayName: displayName,
       profileImage: profileImage,
       location: location,
+      isBookmark: true,
       reputation: reputation);
 }

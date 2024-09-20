@@ -117,6 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       hasMore: state.data.hasMore,
                       onlyShowBookmark: _onlyShowBookmark,
                       listSofUsers: state.data.listSofUser,
+                      listBookmarks: state.data.listBookmarks,
                     );
                   }
 
@@ -132,14 +133,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildListUsers(
       {required List<UserModel> listSofUsers,
+      required List<UserModel> listBookmarks,
       required bool hasMore,
       required bool onlyShowBookmark}) {
     Log.d("_buildListUsers");
-    final filteredList = onlyShowBookmark
-        ? listSofUsers.where((user) => user.isBookmark).toList()
-        : listSofUsers;
+    final renderList = onlyShowBookmark ? listBookmarks : listSofUsers;
 
-    if (filteredList.isEmpty) {
+    if (renderList.isEmpty) {
       return const CustomEmpty();
     }
 
@@ -150,9 +150,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 "list_sof_user_${_onlyShowBookmark ? 'bookmark' : 'all'}"),
             hasMore: onlyShowBookmark ? false : hasMore,
             onScrollToEnd: _handleLoadMore,
-            itemCount: filteredList.length,
+            itemCount: renderList.length,
             itemBuilder: (BuildContext context, int index) {
-              final user = filteredList[index];
+              final user = renderList[index];
 
               return SofUserRow(
                 onTap: () => _navToUserDetail(user),
