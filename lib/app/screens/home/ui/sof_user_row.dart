@@ -51,12 +51,16 @@ class SofUserRow extends StatelessWidget {
     }
 
     Widget buildRightWidget() {
-      return IconButton(
-          onPressed: onToggleBookmark,
-          icon: Icon(
-            Icons.star,
-            size: AppIconSize.base(),
-            color: user.isBookmark ? AppColors.red : AppColors.grey,
+      return CustomInkWell(
+          borderRadius: 100.sp,
+          onTap: onToggleBookmark,
+          child: Container(
+            padding: EdgeInsets.all(AppBoxModel.halfMainPadding()),
+            child: Icon(
+              Icons.star,
+              size: AppIconSize.base(),
+              color: user.isBookmark ? AppColors.red : AppColors.grey,
+            ),
           ));
     }
 
