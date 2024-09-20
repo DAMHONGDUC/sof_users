@@ -31,6 +31,7 @@ dependencies:
 
   bloc: any
   meta: any
+  bloc_concurrency: ^0.2.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
