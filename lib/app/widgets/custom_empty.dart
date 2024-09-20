@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sof_users/core/resources/app_assets.dart';
@@ -32,7 +31,7 @@ class CustomEmpty extends StatelessWidget {
                     height: 5.h,
                   ),
                   Text(
-                    title ?? "common.empty".tr(),
+                    title ?? "Empty",
                     style: AppTextStyle.small().copyWith(
                       fontWeight: FontWeight.w600,
                       color: AppColors.grey_text,

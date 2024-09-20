@@ -1,5 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sof_users/core/constants/app_enum.dart';
 import 'package:sof_users/core/resources/app_colors.dart';
@@ -17,22 +16,22 @@ class ToastManager {
     switch (type) {
       case ToastType.Success:
         backgroundColor = AppColors.successToast;
-        title = "common.success".tr();
+        title = "Success";
         icon = Icons.check;
         break;
       case ToastType.Error:
         backgroundColor = AppColors.errorToast;
-        title = "common.error".tr();
+        title = "Error";
         icon = Icons.error;
         break;
       case ToastType.Warning:
         backgroundColor = AppColors.warningToast;
-        title = "common.warning".tr();
+        title = "Warning";
         icon = Icons.warning;
         break;
       case ToastType.Info:
         backgroundColor = AppColors.infoToast;
-        title = "common.information".tr();
+        title = "Informations";
         icon = Icons.info;
         break;
     }

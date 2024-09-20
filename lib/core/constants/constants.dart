@@ -18,3 +18,7 @@ class AppTranslations {
     return [EN, VI];
   }
 }
+
+class LocalDBConstants {
+  static const String DB_BOOKMARK_USER = 'DB_BOOKMARK_USER';
+}

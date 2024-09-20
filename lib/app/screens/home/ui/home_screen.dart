@@ -26,15 +26,20 @@ class _HomeScreenState extends State<HomeScreen> {
       ValueNotifier(([]));
   bool _isGlobalLoading = true;
   bool _hasMore = true;
+  bool _onlyShowBookmark = false;
 
-  void _getListSofUser() {
+  void _handleGetListSofUser() {
     context.read<HomeBloc>().add(GetListSofEvent());
+  }
+
+  void _handleToggleBookmark(UserModel user) {
+    context.read<HomeBloc>().add(ToggleBookmarkEvent(user: user));
   }
 
   @override
   void initState() {
     // get list user
-    _getListSofUser();
+    _handleGetListSofUser();
 
     super.initState();
   }
@@ -42,7 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const HomeAppBar(),
+      appBar: HomeAppBar(
+        onSwitcherChanged: (newValue) {
+          setState(() {
+            _onlyShowBookmark = newValue;
+          });
+        },
+        switcherValue: _onlyShowBookmark,
+      ),
       backgroundColor: AppColors.primary_background,
       body: Column(
         children: [
@@ -56,11 +68,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     type: ToastType.Error, msg: "Get Sof Users failed");
               }
 
-              if (state is GetListSofSuccess) {
+              if (state is CombineBookmarkSuccess) {
                 setState(() {
                   _isGlobalLoading = false;
-                  _hasMore = state.data.hasMore;
                 });
+                _hasMore = state.data.hasMore;
                 _listSofUserListenable.value = state.data.listSofUser;
               }
             },
@@ -71,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     builder: (context, error, child) {
                       return _buildListUsers(
                         hasMore: _hasMore,
+                        onlyShowBookmark: _onlyShowBookmark,
                         listSofUsers: _listSofUserListenable.value,
                       );
                     }),
@@ -81,21 +94,29 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildListUsers(
-      {required List<UserModel> listSofUsers, required bool hasMore}) {
+      {required List<UserModel> listSofUsers,
+      required bool hasMore,
+      required bool onlyShowBookmark}) {
     Log.d("_buildListUsers");
-    if (listSofUsers.isEmpty) {
+    final filteredList = onlyShowBookmark
+        ? listSofUsers.where((user) => user.isBookmark).toList()
+        : listSofUsers;
+
+    if (filteredList.isEmpty) {
       return const CustomEmpty();
     }
 
     return Expanded(
       child: CustomScrollBar(
         child: SeperatedListView(
-            hasMore: hasMore,
-            onScrollToEnd: _getListSofUser,
-            itemCount: listSofUsers.length,
+            hasMore: onlyShowBookmark ? false : hasMore,
+            onScrollToEnd: _handleGetListSofUser,
+            itemCount: filteredList.length,
             itemBuilder: (BuildContext context, int index) {
               return SofUserRow(
-                user: listSofUsers[index],
+                onToggleBookmark: () =>
+                    _handleToggleBookmark(filteredList[index]),
+                user: filteredList[index],
               );
             }),
       ),

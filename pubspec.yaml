@@ -25,7 +25,12 @@ dependencies:
   skeletonizer: ^1.4.2
   cached_network_image: ^3.4.1
   loading_animation_widget: ^1.2.1
+  hive_flutter: ^1.1.0
+  path_provider: ^2.1.4
+  hive_generator: ^2.0.1
 
+  bloc: any
+  meta: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,6 +1,8 @@
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sof_users/app/utils/helpers.dart';
 import 'package:sof_users/core/constants/constants.dart';
 import 'package:sof_users/core/custom_bloc/app_bloc_observer.dart';
 import 'package:sof_users/core/navigation/navigation_manager.dart';
@@ -30,6 +32,9 @@ Future<void> initialisation() async {
 
     // easy location
     await EasyLocalization.ensureInitialized();
+
+    // set up local db
+    await Helpers.initHive();
 
     // bloc observer
     Bloc.observer = AppBlocObserver();

@@ -11,8 +11,10 @@ import 'package:sof_users/core/resources/app_text_style.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 
 class SofUserRow extends StatelessWidget {
-  const SofUserRow({super.key, required this.user});
+  const SofUserRow(
+      {super.key, required this.user, required this.onToggleBookmark});
 
+  final void Function() onToggleBookmark;
   final UserModel user;
 
   @override
@@ -73,11 +75,11 @@ class SofUserRow extends StatelessWidget {
 
     Widget buildRightWidget() {
       return IconButton(
-          onPressed: () {},
+          onPressed: onToggleBookmark,
           icon: Icon(
             Icons.star,
             size: AppIconSize.base(),
-            color: AppColors.grey,
+            color: user.isBookmark ? AppColors.red : AppColors.grey,
           ));
     }
 

@@ -25,7 +25,6 @@ class SofRepositoryImpl implements SofRepository {
 
       return baseResponse;
     }
-
     return null;
   }
 }
