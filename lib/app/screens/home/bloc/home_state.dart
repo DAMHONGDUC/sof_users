@@ -40,7 +40,6 @@ class Data {
   }
 }
 
-@immutable
 sealed class HomeState extends Equatable {
   final Data data;
 

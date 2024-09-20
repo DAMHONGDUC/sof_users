@@ -27,7 +27,7 @@ class UserModel {
       profileImage: profileImage ?? this.profileImage,
       location: location ?? this.location,
       reputation: reputation ?? this.reputation,
-      id: id ?? this.id, // Since id is required, you can leave it like this
+      id: id ?? this.id,
       isBookmark: isBookmark ?? this.isBookmark,
     );
   }

@@ -15,4 +15,6 @@ class AppEndpoints {
   static final String BASE_API_URL = AppENV.BASE_URL;
 
   static const String USERS = 'users';
+
+  static const String REPUTATION_HISTORY = 'reputation-history';
 }
