@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sof_users/app/screens/home/bloc/home_bloc.dart';
 import 'package:sof_users/app/screens/home/ui/home_app_bar.dart';
 import 'package:sof_users/app/screens/home/ui/sof_user_row.dart';
+import 'package:sof_users/app/screens/user_detail/ui/user_detail_screen.dart';
 import 'package:sof_users/app/utils/log.dart';
 import 'package:sof_users/app/utils/toast_manager.dart';
 import 'package:sof_users/app/widgets/custom_list_skeleton.dart';
@@ -11,6 +12,8 @@ import 'package:sof_users/app/widgets/custom_scroll_bar.dart';
 import 'package:sof_users/app/widgets/seperated_list_view.dart';
 import 'package:sof_users/app/widgets/custom_empty.dart';
 import 'package:sof_users/core/constants/app_enum.dart';
+import 'package:sof_users/core/navigation/app_router.dart';
+import 'package:sof_users/core/navigation/navigation_manager.dart';
 import 'package:sof_users/core/resources/app_colors.dart';
 import 'package:sof_users/domain/model/user_model.dart';
 
@@ -35,6 +38,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _handleLoadMore() {
     context.read<HomeBloc>().add(LoadMoreEvent());
+  }
+
+  void _navToUserDetail(int userId) {
+    NavigationManager.router.push(AppRouter.USER_DETAIL.location,
+        extra: UserDetailArgs(userId: userId));
   }
 
   Future<void> _onRefresh() async {
@@ -125,10 +133,11 @@ class _HomeScreenState extends State<HomeScreen> {
             onScrollToEnd: _handleLoadMore,
             itemCount: filteredList.length,
             itemBuilder: (BuildContext context, int index) {
+              final user = filteredList[index];
               return SofUserRow(
-                onToggleBookmark: () =>
-                    _handleToggleBookmark(filteredList[index]),
-                user: filteredList[index],
+                onTap: () => _navToUserDetail(user.id),
+                onToggleBookmark: () => _handleToggleBookmark(user),
+                user: user,
               );
             }),
       ),

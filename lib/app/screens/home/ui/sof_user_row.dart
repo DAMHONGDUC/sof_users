@@ -12,9 +12,13 @@ import 'package:sof_users/domain/model/user_model.dart';
 
 class SofUserRow extends StatelessWidget {
   const SofUserRow(
-      {super.key, required this.user, required this.onToggleBookmark});
+      {super.key,
+      required this.user,
+      required this.onToggleBookmark,
+      required this.onTap});
 
   final void Function() onToggleBookmark;
+  final void Function() onTap;
   final UserModel user;
 
   @override
@@ -84,7 +88,7 @@ class SofUserRow extends StatelessWidget {
     }
 
     return CustomInkWell(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.all(AppBoxModel.halfMainPadding()),
         child: Row(

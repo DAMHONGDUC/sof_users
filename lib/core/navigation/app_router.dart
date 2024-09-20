@@ -21,6 +21,8 @@ class AppRouter {
   //home
   static final CustomRouter HOME =
       CustomRouter(location: "/home", path: "/home");
+  static final CustomRouter USER_DETAIL =
+      CustomRouter(location: "/home/user_detail", path: "user_detail");
 
   static Page getPage({
     required Widget child,

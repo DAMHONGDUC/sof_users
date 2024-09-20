@@ -7,4 +7,8 @@ sealed class UserDetailEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetUserDetailEvent extends UserDetailEvent {}
+class GetUserDetailEvent extends UserDetailEvent {
+  final int userId;
+
+  GetUserDetailEvent({required this.userId});
+}

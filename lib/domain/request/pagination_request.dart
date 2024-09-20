@@ -1,13 +1,13 @@
-class GetSofUsersRequest {
+class PaginationRequest {
   final int page;
   final int pageSize;
   final String site;
 
-  GetSofUsersRequest(
+  PaginationRequest(
       {required this.page, required this.pageSize, required this.site});
 
-  factory GetSofUsersRequest.init() =>
-      GetSofUsersRequest(page: 0, pageSize: 30, site: "stackoverflow");
+  factory PaginationRequest.init() =>
+      PaginationRequest(page: 0, pageSize: 30, site: "stackoverflow");
 
   Map<String, dynamic> toParams() {
     return {
@@ -17,12 +17,12 @@ class GetSofUsersRequest {
     };
   }
 
-  GetSofUsersRequest copyWith({
+  PaginationRequest copyWith({
     int? page,
     int? pageSize,
     String? site,
   }) {
-    return GetSofUsersRequest(
+    return PaginationRequest(
       page: page ?? this.page,
       pageSize: pageSize ?? this.pageSize,
       site: site ?? this.site,

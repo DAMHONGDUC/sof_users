@@ -7,5 +7,5 @@ abstract class SofRepository {
       {Map<String, dynamic>? params});
 
   Future<BaseResponse<List<ReputationEntity>>?> getListReputation(
-      {required String userId, Map<String, dynamic>? params});
+      {required int userId, Map<String, dynamic>? params});
 }

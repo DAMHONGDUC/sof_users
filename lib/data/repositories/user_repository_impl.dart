@@ -7,7 +7,7 @@ import 'package:sof_users/data/source/remote/entity/reputation_entity.dart';
 import 'package:sof_users/data/source/remote/entity/user_entity.dart';
 import 'package:sof_users/domain/repositories/sof_repository.dart';
 
-class SofRepositoryImpl implements SofRepository {
+class UserRepositoryImpl implements SofRepository {
   @override
   Future<BaseResponse<List<UserEntity>>?> getListSOFUser(
       {Map<String, dynamic>? params}) async {
@@ -31,7 +31,7 @@ class SofRepositoryImpl implements SofRepository {
 
   @override
   Future<BaseResponse<List<ReputationEntity>>?> getListReputation(
-      {required String userId, Map<String, dynamic>? params}) async {
+      {required int userId, Map<String, dynamic>? params}) async {
     final response = await DioService.get(
         '${AppEndpoints.USERS}/$userId/${AppEndpoints.REPUTATION_HISTORY}',
         queryParams: params);
