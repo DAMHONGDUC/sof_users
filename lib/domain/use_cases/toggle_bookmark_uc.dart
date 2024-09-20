@@ -8,7 +8,7 @@ class ToggleBookmarkUC {
 
   final BookmarkRepositoryImpl repository;
 
-  Future<void> call({required UserModel user}) async {
-    await repository.toggleBookmark(user: user);
+  Future<bool> call({required UserModel user}) async {
+    return await repository.toggleBookmark(user: user);
   }
 }
