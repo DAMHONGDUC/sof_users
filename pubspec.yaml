@@ -33,6 +33,7 @@ dependencies:
   meta: any
   bloc_concurrency: ^0.2.5
   custom_refresh_indicator: ^4.0.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -42,6 +43,8 @@ dev_dependencies:
   commitlint_cli: ^0.7.1
   json_serializable: ^6.8.0
   build_runner: ^2.4.11
+  mockito: ^5.4.4
+  bloc_test: ^9.1.7
 
 lint_staged:
   "lib/**.dart": dart format --fix && dart fix --apply
