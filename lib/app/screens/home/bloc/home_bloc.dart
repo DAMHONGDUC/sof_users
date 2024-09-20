@@ -76,7 +76,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       await _onFetchDataAndCombineBookmark(
           state: state,
           emit: emit,
-          newRequest: state.data.request.copyWith(page: 1));
+          isRefresh: true,
+          request: state.data.request);
     } catch (err) {
       emit(HomeError(data: state.data.copyWith(error: err.toString())));
     }
@@ -92,10 +93,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(LoadMoreLoading(data: state.data));
     try {
       await _onFetchDataAndCombineBookmark(
-          state: state,
-          emit: emit,
-          newRequest:
-              state.data.request.copyWith(page: state.data.request.page + 1));
+          state: state, emit: emit, request: state.data.request);
     } catch (err) {
       emit(HomeError(data: state.data.copyWith(error: err.toString())));
     }
@@ -116,13 +114,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> _onFetchDataAndCombineBookmark(
       {required HomeState state,
       required Emitter<HomeState> emit,
-      required GetSofUsersRequest newRequest}) async {
+      bool isRefresh = false,
+      required GetSofUsersRequest request}) async {
+    final newRequest = request.copyWith(page: isRefresh ? 1 : request.page + 1);
+
     final res = await getSofUserUC.call(params: newRequest.toParams());
 
     emit(GetDataSuccess(
         data: state.data.copyWith(
-            listSofUser: List.from(state.data.listSofUser)
-              ..addAll(res?.items ?? []),
+            listSofUser: isRefresh
+                ? res?.items
+                : (List.from(state.data.listSofUser)..addAll(res?.items ?? [])),
             hasMore: res?.hasMore,
             request: newRequest)));
 

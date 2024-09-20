@@ -6,6 +6,7 @@ import 'package:sof_users/app/screens/home/ui/sof_user_row.dart';
 import 'package:sof_users/app/utils/log.dart';
 import 'package:sof_users/app/utils/toast_manager.dart';
 import 'package:sof_users/app/widgets/custom_list_skeleton.dart';
+import 'package:sof_users/app/widgets/custom_refresh.dart';
 import 'package:sof_users/app/widgets/custom_scroll_bar.dart';
 import 'package:sof_users/app/widgets/seperated_list_view.dart';
 import 'package:sof_users/app/widgets/custom_empty.dart';
@@ -24,11 +25,11 @@ class _HomeScreenState extends State<HomeScreen> {
   final _scrollController = ScrollController();
   final ValueNotifier<List<UserModel>> _listSofUserListenable =
       ValueNotifier(([]));
-  bool _isGlobalLoading = true;
+  bool _isRefreshLoading = true;
   bool _hasMore = true;
   bool _onlyShowBookmark = false;
 
-  void _handleRefresh() {
+  void _handleRefresh() async {
     context.read<HomeBloc>().add(RefreshEvent());
   }
 
@@ -38,6 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _handleLoadMore() {
     context.read<HomeBloc>().add(LoadMoreEvent());
+  }
+
+  Future<void> _onRefresh() async {
+    if (!_onlyShowBookmark) {
+      _handleRefresh();
+    }
   }
 
   @override
@@ -60,39 +67,48 @@ class _HomeScreenState extends State<HomeScreen> {
         switcherValue: _onlyShowBookmark,
       ),
       backgroundColor: AppColors.primary_background,
-      body: Column(
-        children: [
-          BlocListener<HomeBloc, HomeState>(
-            listener: (context, state) {
-              if (state is HomeError) {
-                setState(() {
-                  _isGlobalLoading = false;
-                });
-                ToastManager.showNotificationToast(
-                    type: ToastType.Error, msg: "Get Sof Users failed");
-              }
+      body: CustomRefresh(
+        onRefresh: _onRefresh,
+        child: Column(
+          children: [
+            BlocListener<HomeBloc, HomeState>(
+              listener: (context, state) {
+                if (state is RefreshLoading) {
+                  setState(() {
+                    _isRefreshLoading = true;
+                  });
+                }
 
-              if (state is CombineBookmarkSuccess) {
-                setState(() {
-                  _isGlobalLoading = false;
-                });
-                _hasMore = state.data.hasMore;
-                _listSofUserListenable.value = state.data.listSofUser;
-              }
-            },
-            child: _isGlobalLoading
-                ? const CustomListSkeleton()
-                : ValueListenableBuilder(
-                    valueListenable: _listSofUserListenable,
-                    builder: (context, error, child) {
-                      return _buildListUsers(
-                        hasMore: _hasMore,
-                        onlyShowBookmark: _onlyShowBookmark,
-                        listSofUsers: _listSofUserListenable.value,
-                      );
-                    }),
-          )
-        ],
+                if (state is HomeError) {
+                  setState(() {
+                    _isRefreshLoading = false;
+                  });
+                  ToastManager.showNotificationToast(
+                      type: ToastType.Error, msg: "Get Sof Users failed");
+                }
+
+                if (state is CombineBookmarkSuccess) {
+                  setState(() {
+                    _isRefreshLoading = false;
+                  });
+                  _hasMore = state.data.hasMore;
+                  _listSofUserListenable.value = state.data.listSofUser;
+                }
+              },
+              child: _isRefreshLoading
+                  ? const CustomListSkeleton()
+                  : ValueListenableBuilder(
+                      valueListenable: _listSofUserListenable,
+                      builder: (context, error, child) {
+                        return _buildListUsers(
+                          hasMore: _hasMore,
+                          onlyShowBookmark: _onlyShowBookmark,
+                          listSofUsers: _listSofUserListenable.value,
+                        );
+                      }),
+            )
+          ],
+        ),
       ),
     );
   }
