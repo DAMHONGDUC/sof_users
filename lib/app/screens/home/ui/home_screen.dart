@@ -40,7 +40,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _handleLoadMore() {
-    context.read<HomeBloc>().add(LoadMoreEvent());
+    if (!_onlyShowBookmark) {
+      context.read<HomeBloc>().add(LoadMoreEvent());
+    }
   }
 
   void _navToUserDetail(UserModel user) {
