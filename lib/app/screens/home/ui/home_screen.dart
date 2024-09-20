@@ -146,11 +146,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Expanded(
       child: CustomScrollBar(
         child: SeperatedListView(
+            key: PageStorageKey(
+                "list_sof_user_${_onlyShowBookmark ? 'bookmark' : 'all'}"),
             hasMore: onlyShowBookmark ? false : hasMore,
             onScrollToEnd: _handleLoadMore,
             itemCount: filteredList.length,
             itemBuilder: (BuildContext context, int index) {
               final user = filteredList[index];
+
               return SofUserRow(
                 onTap: () => _navToUserDetail(user),
                 onToggleBookmark: () => _handleToggleBookmark(user),

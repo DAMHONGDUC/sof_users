@@ -90,6 +90,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
     return Expanded(
       child: CustomScrollBar(
         child: SeperatedListView(
+            listKey: "list_reputation",
             itemCount: listReputation.length,
             itemBuilder: (BuildContext context, int index) {
               return ReputationRow(
