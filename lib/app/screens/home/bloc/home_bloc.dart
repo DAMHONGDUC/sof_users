@@ -7,6 +7,7 @@ import 'package:sof_users/domain/use_cases/toggle_bookmark_uc.dart';
 import 'package:sof_users/domain/use_cases/get_list_bookmark_uc.dart';
 import 'package:sof_users/domain/use_cases/get_sof_user_uc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
@@ -21,9 +22,32 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required this.getListBookmarkUC,
     required this.toggleBookmarkUC,
   }) : super(HomeInitial()) {
-    on<GetListSofEvent>(_onGetListSofEvent);
+    // bookmark
     on<ToggleBookmarkEvent>(_onToggleBookmarkEvent);
     on<CombineWithBookmarkEvent>(_onCombineWithBookmarkEvent);
+
+    // refresh
+    on<RefreshEvent>(_onRefreshEvent);
+
+    // load more
+    on<LoadMoreEvent>(
+      _onLoadMoreEvent,
+      transformer: droppable(), // ignore if already call load more
+    );
+  }
+
+  // bookmark
+  _onToggleBookmarkEvent(
+      ToggleBookmarkEvent event, Emitter<HomeState> emit) async {
+    emit(HandleBookmarkLoading(data: state.data));
+
+    try {
+      await toggleBookmarkUC.call(user: event.user);
+
+      add(CombineWithBookmarkEvent());
+    } catch (err) {
+      emit(HomeError(data: state.data.copyWith(error: err.toString())));
+    }
   }
 
   _onCombineWithBookmarkEvent(
@@ -41,46 +65,37 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         listBookmarks: listBookmarkUsers,
       )));
     } catch (err) {
-      emit(GetListSofError(data: state.data.copyWith(error: err.toString())));
+      emit(HomeError(data: state.data.copyWith(error: err.toString())));
     }
   }
 
-  _onToggleBookmarkEvent(
-      ToggleBookmarkEvent event, Emitter<HomeState> emit) async {
-    emit(HandleBookmarkLoading(data: state.data));
-
+  // refresh
+  _onRefreshEvent(RefreshEvent event, Emitter<HomeState> emit) async {
+    emit(RefreshLoading(data: state.data));
     try {
-      await toggleBookmarkUC.call(user: event.user);
-
-      add(CombineWithBookmarkEvent());
+      await _onFetchDataAndCombineBookmark(
+          state: state,
+          emit: emit,
+          isRefresh: true,
+          request: state.data.request);
     } catch (err) {
-      emit(GetListSofError(data: state.data.copyWith(error: err.toString())));
+      emit(HomeError(data: state.data.copyWith(error: err.toString())));
     }
   }
 
-  _onGetListSofEvent(GetListSofEvent event, Emitter<HomeState> emit) async {
-    if (state is GetListSofGlobalLoading) {
+  // load more
+  _onLoadMoreEvent(LoadMoreEvent event, Emitter<HomeState> emit) async {
+    if (!state.data.hasMore || state is LoadMoreLoading) {
       return;
     }
 
     // if has more
-    emit(GetListSofGlobalLoading(data: state.data));
+    emit(LoadMoreLoading(data: state.data));
     try {
-      GetSofUsersRequest newRequest =
-          state.data.request.copyWith(page: state.data.request.page + 1);
-
-      final res = await getSofUserUC.call(params: newRequest.toParams());
-
-      emit(GetListSofSuccess(
-          data: state.data.copyWith(
-              listSofUser: List.from(state.data.listSofUser)
-                ..addAll(res?.items ?? []),
-              hasMore: res?.hasMore,
-              request: newRequest)));
-
-      add(CombineWithBookmarkEvent());
+      await _onFetchDataAndCombineBookmark(
+          state: state, emit: emit, request: state.data.request);
     } catch (err) {
-      emit(GetListSofError(data: state.data.copyWith(error: err.toString())));
+      emit(HomeError(data: state.data.copyWith(error: err.toString())));
     }
   }
 
@@ -94,5 +109,25 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         isBookmark: bookmarkIds.contains(user.id),
       );
     }).toList();
+  }
+
+  Future<void> _onFetchDataAndCombineBookmark(
+      {required HomeState state,
+      required Emitter<HomeState> emit,
+      bool isRefresh = false,
+      required GetSofUsersRequest request}) async {
+    final newRequest = request.copyWith(page: isRefresh ? 1 : request.page + 1);
+
+    final res = await getSofUserUC.call(params: newRequest.toParams());
+
+    emit(GetDataSuccess(
+        data: state.data.copyWith(
+            listSofUser: isRefresh
+                ? res?.items
+                : (List.from(state.data.listSofUser)..addAll(res?.items ?? [])),
+            hasMore: res?.hasMore,
+            request: newRequest)));
+
+    add(CombineWithBookmarkEvent());
   }
 }
